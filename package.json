@@ -1,0 +1,19 @@
+{
+  "name": "api.invisiblelink.co",
+  "version": "1.0.0",
+  "scripts": {
+    "serve": "netlify dev"
+  },
+  "author": {
+    "name": "Ashur Cabrera",
+    "url": "https://ashur.cab/rera/"
+  },
+  "keywords": [],
+  "license": "ISC",
+  "dependencies": {
+    "@supabase/supabase-js": "^1.11.17",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "serverless-http": "^2.7.0"
+  }
+}
