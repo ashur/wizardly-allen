@@ -1,5 +1,5 @@
 {
-  "name": "api.invisiblelink.co",
+  "name": "invisiblelink.co",
   "version": "1.0.0",
   "scripts": {
     "serve": "netlify dev"

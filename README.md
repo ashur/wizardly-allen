@@ -1,2 +1,2 @@
-# api.invisiblelink.co
+# invisiblelink.co
 
