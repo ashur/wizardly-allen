@@ -7,7 +7,7 @@ const supabase = require( "../src/SupabaseClient" );
 const app = express();
 app.use( express.json() );
 
-app.get( "/:apiVersion/posts/", async (req, res) =>
+app.get( "/api/:apiVersion/posts/", async (req, res) =>
 {
 	let {data: posts, error} = await supabase.selectPosts();
 
@@ -36,7 +36,7 @@ app.get( "/:apiVersion/posts/", async (req, res) =>
 	}
 });
 
-app.get( "/:apiVersion/posts/:id", async (req, res) =>
+app.get( "/api/:apiVersion/posts/:id", async (req, res) =>
 {
 	let {data: post, error} = await supabase.selectPost( req.params.id );
 
@@ -67,7 +67,7 @@ app.get( "/:apiVersion/posts/:id", async (req, res) =>
 	}
 });
 
-app.post( "/:apiVersion/posts", [requireAuth, parseBody], async (req, res) =>
+app.post( "/api/:apiVersion/posts", [requireAuth, parseBody], async (req, res) =>
 {
 	let {data: post, error} = await supabase.insertPost( req.body );
 
@@ -88,7 +88,7 @@ app.post( "/:apiVersion/posts", [requireAuth, parseBody], async (req, res) =>
 	}
 });
 
-app.put( "/:apiVersion/posts/:id", [requireAuth, parseBody], async (req, res) =>
+app.put( "/api/:apiVersion/posts/:id", [requireAuth, parseBody], async (req, res) =>
 {
 	let postId = parseInt( req.params.id );
 
