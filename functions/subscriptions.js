@@ -51,7 +51,6 @@ app.get( "/api/:apiVersion/subscriptions/", [requireAuth], async (req, res) =>
 app.get( "/api/:apiVersion/subscriptions/:hash", async (req, res) =>
 {
 	let {data: subscriptions, error} = await supabase.getSubscription( req.params.hash );
-	console.log( {subscriptions}, {error} );
 
 	if( error )
 	{
