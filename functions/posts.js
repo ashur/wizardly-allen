@@ -30,6 +30,8 @@ app.get( "/api/:apiVersion/posts/", async (req, res) =>
 			return createdB - createdA;
 		});
 
+		posts.forEach( post => post.tags = post.tags || [] );
+
 		res.json({
 			posts: posts,
 		});
