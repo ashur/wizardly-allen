@@ -2,7 +2,8 @@
   "name": "invisiblelink.co",
   "version": "1.0.0",
   "scripts": {
-    "build": "curl $URL/api/v1/posts > ./functions/data/posts.json",
+    "prebuild": "mkdir -p ./dist",
+    "build": "eleventy",
     "serve": "netlify dev",
     "test": "mocha test"
   },
@@ -13,6 +14,8 @@
   "keywords": [],
   "license": "ISC",
   "dependencies": {
+    "@11ty/eleventy": "^0.12.1",
+    "@11ty/eleventy-cache-assets": "^2.2.1",
     "@supabase/supabase-js": "^1.11.17",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",

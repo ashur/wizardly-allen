@@ -6,7 +6,7 @@ const supabase = require( "../src/SupabaseClient" );
 const uniqueSlug = require( "unique-slug" );
 
 const {posts} = require( "./data/posts" );
-const tags = require( "./data/tags" );
+const {sortedTags: tags} = require( "./data/tags" );
 const site = require( "../src/_data/site" );
 const Feed = require( "../src/Feed" );
 

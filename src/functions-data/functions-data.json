@@ -1,0 +1,3 @@
+{
+	"permalink": "../functions/data/{{ page.fileSlug }}.json"
+}

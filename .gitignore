@@ -1,4 +1,5 @@
 .DS_Store
 .env
 dist
+functions/data/*.json
 node_modules
