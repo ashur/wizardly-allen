@@ -18,7 +18,7 @@ app.use( express.json() );
  *
  * @method GET
  */
-app.get( "/api/:apiVersion/feeds/:hash", async (req, res) =>
+async function getFeed (req, res)
 {
 	let ext = path.extname( req.params.hash );
 	let hash = path.basename( req.params.hash, ext );
@@ -89,7 +89,10 @@ app.get( "/api/:apiVersion/feeds/:hash", async (req, res) =>
 			);
 		}
 	}
-});
+}
+
+app.get( "/api/:apiVersion/feeds/:hash", getFeed );
+app.get( "/feed/:hash", getFeed );
 
 app.use( "*", async (req, res) =>
 {

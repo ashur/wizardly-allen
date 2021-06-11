@@ -5,3 +5,8 @@
   from = "/api/:version/:resource/*"
   to = "/.netlify/functions/:resource/:splat"
   status = 200
+
+[[redirects]]
+  from = "/feed/:hash"
+  to = "/.netlify/functions/feeds/:hash"
+  status = 200
