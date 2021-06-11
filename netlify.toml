@@ -2,10 +2,14 @@
   functions = "functions"
 
 [[redirects]]
+  from = "/api/v1/static/:resource"
+  to = "/api/v1/static/:resource"
+  status = 200
+
+[[redirects]]
   from = "/api/:version/:resource/*"
   to = "/.netlify/functions/:resource/:splat"
-  status = 302
-  force = false
+  status = 200
 
 [[redirects]]
   from = "/feed/:hash"
