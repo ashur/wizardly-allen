@@ -4,7 +4,7 @@
 [[redirects]]
   from = "/api/:version/:resource/*"
   to = "/.netlify/functions/:resource/:splat"
-  status = 200
+  status = 302
 
 [[redirects]]
   from = "/feed/:hash"
