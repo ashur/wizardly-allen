@@ -2,7 +2,7 @@
   "name": "invisiblelink.co",
   "version": "1.0.0",
   "scripts": {
-    "prebuild": "mkdir -p ./dist",
+    "prebuild": "mkdir -p ./dist && echo '{\"posts\":[]}' > ./functions/data/posts.json && '{\"tags\":[]}' > ./functions/data/tags.json",
     "build": "eleventy",
     "serve": "netlify dev",
     "test": "mocha test"
