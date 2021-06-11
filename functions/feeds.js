@@ -3,10 +3,13 @@ const parseBody = require( "./middleware/parse-body" );
 const path = require( "path" );
 const serverless = require( "serverless-http" );
 const supabase = require( "../src/SupabaseClient" );
+const staticData = require( "../src/StaticData" );
 const uniqueSlug = require( "unique-slug" );
 
-const {posts} = require( "./data/posts" );
-const {sortedTags: tags} = require( "./data/tags" );
+// const {posts} = require( "./data/posts" );
+// const {sortedTags: tags} = require( "./data/tags" );
+const {posts} = staticData( "posts.json" );
+const {sortedTags: tags} = staticData( "tags.json" )
 const site = require( "../src/_data/site" );
 const Feed = require( "../src/Feed" );
 
