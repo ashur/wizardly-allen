@@ -60,8 +60,9 @@ app.get( "/api/:apiVersion/feeds/:hash", async (req, res) =>
 			subscription.fetched = fetched;
 
 			let feedPosts = Object.assign( [], posts );
+			let popularTags = tags.slice( 0, 5 );
 
-			let welcomeBody = `Hello! Thank you for subscribing to this strange little [tumblelog](https://kottke.org/05/10/tumblelogs), available only via RSS.\n\n## RSS only?\n\n ## What can I expect?\n\nPopular topics include:\n${tags.map( tag => `- ${tag}` ).join( "\n" )}\n\n### Customize your feed\n\nNaturally, not everything will strike your fancy, but maybe there’s a particular topic that's just not your jam.\n\nAt the bottom of every post you'll find a “⚙︎” link to fine-tune your feed so you see only the links you're interested in.\n\nI think that's it! Poke around the backlog if you're curious, but don't worry too much what's already come and gone. Let what's in store .\n\nxoxo,\n[Ashur](${site.author.link})`;
+			let welcomeBody = `Hello! Thank you for subscribing to this strange little [tumblelog](https://kottke.org/05/10/tumblelogs), available only via RSS.\n\n## RSS only?\n\n ## What can I expect?\n\nPopular topics include:\n${popularTags.map( tag => `- ${tag}` ).join( "\n" )}\n\n### Customize your feed\n\nNaturally, not everything will strike your fancy, but maybe there’s a particular topic that's just not your jam.\n\nAt the bottom of every post you'll find a “⚙︎” link to fine-tune your feed so you see only the links you're interested in.\n\nI think that's it! Poke around the backlog if you're curious, but don't worry too much what's already come and gone. Let what's in store .\n\nxoxo,\n[Ashur](${site.author.link})`;
 
 			feedPosts.push({
 				created: subscription.created,
