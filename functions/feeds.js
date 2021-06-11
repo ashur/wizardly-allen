@@ -1,17 +1,21 @@
 const express = require( "express" );
+const Feed = require( "../src/Feed" );
+const fs = require( "fs" );
 const parseBody = require( "./middleware/parse-body" );
 const path = require( "path" );
 const serverless = require( "serverless-http" );
+const site = require( "../src/_data/site" );
 const supabase = require( "../src/SupabaseClient" );
-const staticData = require( "../src/StaticData" );
 const uniqueSlug = require( "unique-slug" );
 
-// const {posts} = require( "./data/posts" );
-// const {sortedTags: tags} = require( "./data/tags" );
-const {posts} = staticData( "posts.json" );
-const {sortedTags: tags} = staticData( "tags.json" )
-const site = require( "../src/_data/site" );
-const Feed = require( "../src/Feed" );
+// const {posts} = staticData( "posts.json" );
+// const {sortedTags: tags} = staticData( "tags.json" )
+
+let postsJson = fs.readFileSync( `${__dirname}/data/posts.json` );
+const {posts} = JSON.parse( postsJson );
+
+let tagsJson = fs.readFileSync( `${__dirname}/data/tags.json` );
+const {sortedTags: tags} = JSON.parse( tagsJson );
 
 const app = express();
 app.use( express.json() );
