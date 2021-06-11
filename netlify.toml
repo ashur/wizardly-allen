@@ -5,6 +5,7 @@
   from = "/api/:version/:resource/*"
   to = "/.netlify/functions/:resource/:splat"
   status = 302
+  force = false
 
 [[redirects]]
   from = "/feed/:hash"
