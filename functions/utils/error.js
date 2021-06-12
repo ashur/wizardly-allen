@@ -4,11 +4,10 @@ module.exports.serverError = (error, res, status=500) =>
 {
 	let errorSlug = uniqueSlug();
 
-	console.log( "message:", error.message );
-
 	let errorLog = {
 		id: errorSlug,
 		error: error.message || error,
+		name: error.name,
 	};
 
 	if( error.stack )
