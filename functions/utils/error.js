@@ -15,7 +15,7 @@ module.exports.serverError = (error, res, status=500) =>
 		errorLog.stack = error.stack;
 	}
 
-	console.log( "Server Error:", errorLog );
+	console.error( "Server Error:", errorLog );
 
 	if( !res.headersSent )
 	{
