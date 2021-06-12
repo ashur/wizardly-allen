@@ -2,11 +2,11 @@ const supabase = require( "../SupabaseClient" );
 
 module.exports = async () =>
 {
-	let {data: posts, error} = await supabase.selectPosts();
+	let {data: posts, error: supabaseError} = await supabase.selectPosts();
 
-	if( error )
+	if( supabaseError )
 	{
-		throw new Error( error );
+		throw new Error( supabaseError.message );
 	}
 	else
 	{
