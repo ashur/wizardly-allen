@@ -8,14 +8,8 @@ const site = require( "../src/_data/site" );
 const supabase = require( "../src/SupabaseClient" );
 const uniqueSlug = require( "unique-slug" );
 
-// const {posts} = staticData( "posts.json" );
-// const {sortedTags: tags} = staticData( "tags.json" )
-
-let postsJson = fs.readFileSync( `${__dirname}/data/posts.json` );
-const {posts} = JSON.parse( postsJson );
-
-let tagsJson = fs.readFileSync( `${__dirname}/data/tags.json` );
-const {sortedTags: tags} = JSON.parse( tagsJson );
+const {posts} = require( "../dist/api/v1/static/posts.json" );
+const {sortedTags: tags} = require( "../dist/api/v1/static/tags.json" )
 
 const app = express();
 app.use( express.json() );
