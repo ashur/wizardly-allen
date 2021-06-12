@@ -17,10 +17,17 @@ module.exports.serverError = (error, res, status=500) =>
 
 	console.log( "Server Error:", errorLog );
 
-	res.status( status );
-	res.json({
-		title: "Server Error",
-		reason: "server-error",
-		id: errorSlug,
-	});
+	if( !res.headersSent )
+	{
+		res.status( status );
+		res.json({
+			title: "Server Error",
+			reason: "server-error",
+			id: errorSlug,
+		});
+	}
+	else
+	{
+		console.log( "Notice: Error not sent to client, headers already sent" );
+	}
 };
