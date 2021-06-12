@@ -9,7 +9,7 @@ const supabase = require( "../src/SupabaseClient" );
 const uniqueSlug = require( "unique-slug" );
 
 const {posts} = require( "../dist/api/v1/static/posts.json" );
-const {sortedTags: tags} = require( "../dist/api/v1/static/tags.json" )
+const {tags} = require( "../dist/api/v1/static/tags.json" )
 
 const app = express();
 app.use( express.json() );
