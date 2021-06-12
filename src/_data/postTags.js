@@ -28,12 +28,19 @@ module.exports = async () =>
 			});
 		});
 
-		let sortedTags = Object.keys( tags )
+		let popularTags = Object.keys( tags )
 			.sort( (a,b) =>
 			{
 				if( tags[b] - tags[a] === 0 )
 				{
-					return( "" + b.attr).localeCompare( a.attr );
+					if( a > b )
+					{
+						return 1;
+					}
+					if( a < b )
+					{
+						return -1;
+					}
 				}
 				else
 				{
@@ -42,8 +49,7 @@ module.exports = async () =>
 			});
 
 		return {
-			tags: tags,
-			sortedTags: sortedTags,
+			tags: popularTags
 		};
 	}
 };
