@@ -4,6 +4,12 @@
   publish = "dist"
 
 [[redirects]]
+  from = "/api/:version/static/:resource"
+  to = "/api/:version/static/:resource.json"
+  status = 200
+  force = true
+
+[[redirects]]
   from = "/api/:version/:resource/*"
   to = "/.netlify/functions/:resource/:splat"
   status = 200
