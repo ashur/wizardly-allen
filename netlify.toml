@@ -5,13 +5,9 @@
 
 [[redirects]]
   from = "/api/:version/:resource/*"
-  to = "/api/:version/:resource.json"
-  status = 200
-
-[[redirects]]
-  from = "/api/:version/:resource/*"
   to = "/.netlify/functions/:resource/:splat"
   status = 200
+  force = false
 
 [[redirects]]
   from = "/feed/:hash"
