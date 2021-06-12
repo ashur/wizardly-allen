@@ -82,7 +82,7 @@ async function getFeed (req, res)
 	{
 		// If there's a server error, tell the RSS client the user's feed hasn't
 		// changed to avoid getting banned
-		serverError( error, res, 304 );
+		serverError( error, req, res, 304 );
 	}
 }
 

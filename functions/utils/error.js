@@ -1,6 +1,6 @@
 const uniqueSlug = require( "unique-slug" );
 
-module.exports.serverError = (error, res, status=500) =>
+module.exports.serverError = (error, req, res, status=500) =>
 {
 	let errorSlug = uniqueSlug();
 
@@ -8,6 +8,10 @@ module.exports.serverError = (error, res, status=500) =>
 		id: errorSlug,
 		error: error.message || error,
 		name: error.name,
+		req: {
+			url: req.url,
+			"user-agent": req.headers["user-agent"],
+		},
 	};
 
 	if( error.stack )

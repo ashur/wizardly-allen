@@ -37,7 +37,7 @@ app.get( "/api/:apiVersion/posts/", async (req, res) =>
 	}
 	catch( error )
 	{
-		serverError( error, res );
+		serverError( error, req, res );
 	}
 });
 
@@ -69,7 +69,7 @@ app.get( "/api/:apiVersion/posts/:id", async (req, res) =>
 	}
 	catch( error )
 	{
-		serverError( error, res );
+		serverError( error, req, res );
 	}
 });
 
@@ -92,7 +92,7 @@ app.post( "/api/:apiVersion/posts", [requireAuth, parseBody], async (req, res) =
 	}
 	catch( error )
 	{
-		serverError( error, res );
+		serverError( error, req, res );
 	}
 });
 
@@ -132,7 +132,7 @@ app.put( "/api/:apiVersion/posts/:id", [requireAuth, parseBody], async (req, res
 	}
 	catch( error )
 	{
-		serverError( error, res );
+		serverError( error, req, res );
 	}
 });
 

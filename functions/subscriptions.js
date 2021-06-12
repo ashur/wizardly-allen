@@ -42,7 +42,7 @@ app.get( "/api/:apiVersion/subscriptions/", [requireAuth], async (req, res) =>
 	}
 	catch( error )
 	{
-		serverError( error, res );
+		serverError( error, req, res );
 	}
 });
 
@@ -93,7 +93,7 @@ app.get( "/api/:apiVersion/subscriptions/:hash", async (req, res) =>
 	}
 	catch( error)
 	{
-		serverError( error, res );
+		serverError( error, req, res );
 	}
 });
 
@@ -127,7 +127,7 @@ app.post( "/api/:apiVersion/subscriptions", async (req, res) =>
 	}
 	catch( error )
 	{
-		serverError( error, res );
+		serverError( error, req, res );
 	}
 });
 
@@ -171,7 +171,7 @@ app.put( "/api/:apiVersion/subscriptions/:hash", [parseBody], async (req, res) =
 	}
 	catch( error )
 	{
-		serverError( error, res );
+		serverError( error, req, res );
 	}
 });
 
