@@ -1,6 +1,7 @@
 const express = require( "express" );
 const parseBody = require( "./middleware/parse-body" );
 const requireAuth = require( "./middleware/auth" );
+const {serverError} = require( "./utils/error" );
 const serverless = require( "serverless-http" );
 const supabase = require( "../src/SupabaseClient" );
 const uniqueSlug = require( "unique-slug" );
@@ -16,30 +17,32 @@ app.use( express.json() );
  */
 app.get( "/api/:apiVersion/subscriptions/", [requireAuth], async (req, res) =>
 {
-	let {data: subscriptions, error} = await supabase.getSubscriptions();
+	try
+	{
+		let {data: subscriptions, error: supabaseError} = await supabase.getSubscriptions();
 
-	if( error )
-	{
-		res.status( 500 );
-		res.json({
-			title: "Server Error",
-			reason: "server-error",
-			error: error,
-		});
-	}
-	else
-	{
-		subscriptions.sort( (a,b) =>
+		if( supabaseError )
 		{
-			let createdA = new Date( a.created );
-			let createdB = new Date( b.created );
+			throw new Error( supabaseError.message );
+		}
+		else
+		{
+			subscriptions.sort( (a,b) =>
+			{
+				let createdA = new Date( a.created );
+				let createdB = new Date( b.created );
 
-			return createdB - createdA;
-		});
+				return createdB - createdA;
+			});
 
-		res.json({
-			subscriptions: subscriptions,
-		});
+			res.json({
+				subscriptions: subscriptions,
+			});
+		}
+	}
+	catch( error )
+	{
+		serverError( error, res );
 	}
 });
 
@@ -50,52 +53,47 @@ app.get( "/api/:apiVersion/subscriptions/", [requireAuth], async (req, res) =>
  */
 app.get( "/api/:apiVersion/subscriptions/:hash", async (req, res) =>
 {
-	let {data: subscriptions, error} = await supabase.getSubscription( req.params.hash );
-
-	if( error )
+	try
 	{
-		let errorSlug = uniqueSlug();
+		let {data: subscriptions, error: supabaseError} = await supabase.getSubscription( req.params.hash );
 
-		console.log( "Server Error:", {
-			id: errorSlug,
-			error: error,
-		});
-
-		res.status( 500 );
-		res.json({
-			title: "Server Error",
-			reason: "server-error",
-			id: errorSlug,
-		});
-	}
-	else
-	{
-		if( subscriptions.length === 0 )
+		if( supabaseError )
 		{
-			res.status( 404 );
-			res.json({
-				title: "Not Found",
-				reason: "not-found",
-				error: error,
-			});
+			throw new Error( supabaseError.message );
 		}
 		else
 		{
-			let fetched = new Date();
-			let subscription = subscriptions[0];
-			subscription.fetched = fetched;
+			if( subscriptions.length === 0 )
+			{
+				res.status( 404 );
+				res.json({
+					title: "Not Found",
+					reason: "not-found",
+					error: error,
+				});
+			}
+			else
+			{
+				let fetched = new Date();
+				let subscription = subscriptions[0];
+				subscription.fetched = fetched;
 
-			res.json({
-				subscription: subscription,
-			});
+				res.json({
+					subscription: subscription,
+				});
 
-			await supabase.updateSubscription(
-				subscription.hash,
-				{
-					fetched: fetched,
-				},
-			);
+				await supabase.updateSubscription(
+					subscription.hash,
+					{
+						fetched: fetched,
+					},
+				);
+			}
 		}
+	}
+	catch( error)
+	{
+		serverError( error, res );
 	}
 });
 
@@ -106,28 +104,30 @@ app.get( "/api/:apiVersion/subscriptions/:hash", async (req, res) =>
  */
 app.post( "/api/:apiVersion/subscriptions", async (req, res) =>
 {
-	let {data: subscriptions, error} = await supabase.createSubscription
-	(
-		{
-			hash: uniqueSlug( Date.now().toString() + uniqueSlug() ),
-			ignored_tags: [],
-		}
-	);
+	try
+	{
+		let {data: subscriptions, error: supabaseError} = await supabase.createSubscription
+		(
+			{
+				hash: uniqueSlug( Date.now().toString() + uniqueSlug() ),
+				ignored_tags: [],
+			}
+		);
 
-	if( error )
-	{
-		res.status( 400 );
-		res.json({
-			title: "Bad Request",
-			reason: "bad-request",
-			error: error,
-		});
+		if( supabaseError )
+		{
+			throw new Error( supabaseError.message );
+		}
+		else
+		{
+			res.json({
+				subscription: subscriptions[0],
+			});
+		}
 	}
-	else
+	catch( error )
 	{
-		res.json({
-			subscription: subscriptions[0],
-		});
+		serverError( error, res );
 	}
 });
 
@@ -142,32 +142,36 @@ app.put( "/api/:apiVersion/subscriptions/:hash", [parseBody], async (req, res) =
 	delete updatedProperties.id;
 	delete updatedProperties.hash;
 
-	let {data: subscriptions, error} = await supabase.updateSubscription( req.params.hash, updatedProperties );
-
-	if( error )
+	try
 	{
-		if( Array.isArray( error ) && error.length === 0 )
+		let {data: subscriptions, error: supabaseError} = await supabase.updateSubscription( req.params.hash, updatedProperties );
+
+		if( supabaseError )
 		{
-			res.status( 404 );
-			res.json({
-				title: "Not Found",
-				reason: "not-found",
-			});
+			// Attempting to update non-existent record
+			if( Array.isArray( supabaseError ) && supabaseError.length === 0 )
+			{
+				res.status( 404 );
+				res.json({
+					title: "Not Found",
+					reason: "not-found",
+				});
+			}
+			else
+			{
+				throw new Error( supabaseError.message );
+			}
 		}
-		else if( error.status )
+		else
 		{
-			res.status( error.status );
 			res.json({
-				title: error.title,
-				reason: error.reason,
+				subscription: subscriptions[0],
 			});
 		}
 	}
-	else
+	catch( error )
 	{
-		res.json({
-			subscription: subscriptions[0],
-		});
+		serverError( error, res );
 	}
 });
 
