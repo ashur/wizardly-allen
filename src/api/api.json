@@ -1,0 +1,3 @@
+{
+	"permalink": "/api/v1/static/{{ page.fileSlug }}.json"
+}
