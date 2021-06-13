@@ -57,7 +57,7 @@ async function getFeed (req, res)
 					url: `${site.url}/configure/${hash}`,
 					title: `🍍 Welcome to ${site.title}`,
 					body: welcomeBody,
-					tags: ["Meta"],
+					tags: [],
 				});
 
 				let feed = new Feed({
