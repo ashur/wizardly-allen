@@ -8,5 +8,3 @@ module.exports = {
 		link: "https://ashur.cab/rera"
 	}
 }
-
-console.log( ">>> URL:", process.env.DEPLOY_PRIME_URL || process.env.URL );

@@ -4,10 +4,10 @@ const parseBody = require( "./middleware/parse-body" );
 const path = require( "path" );
 const {serverError} = require( "./utils/error" );
 const serverless = require( "serverless-http" );
-const site = require( "../src/_data/site" );
 const supabase = require( "../src/SupabaseClient" );
 
 const {posts} = require( "./data/posts.json" );
+const site = require( "./data/site.json" )
 const {tags} = require( "./data/tags.json" )
 
 const app = express();
@@ -59,8 +59,6 @@ async function getFeed (req, res)
 					body: welcomeBody,
 					tags: [],
 				});
-
-				console.log( "feeds.js: site >>>", site )
 
 				let feed = new Feed({
 					site: site,
