@@ -1,3 +1,5 @@
+console.log( process.env );
+
 module.exports = {
 	title: "Invisible Link",
 	description: "An RSS-only linkblog",
