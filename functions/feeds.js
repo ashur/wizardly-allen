@@ -60,6 +60,8 @@ async function getFeed (req, res)
 					tags: [],
 				});
 
+				console.log( "feeds.js: site >>>", site )
+
 				let feed = new Feed({
 					site: site,
 					subscriptionHash: subscription.hash,

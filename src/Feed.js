@@ -18,6 +18,7 @@ class Feed
 	 */
 	constructor( options )
 	{
+		console.log( "Feed.js: options.site >>>", options.site )
 		let feedOptions = {
 			title: options.site.title,
 			description: options.site.description,
