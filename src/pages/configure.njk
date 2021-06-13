@@ -1,0 +1,213 @@
+---
+title: Configure your feed
+description: Customize the content of your feed
+externalScripts:
+  - "https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.2/dist/alpine.min.js"
+---
+<div
+	x-data="app"
+	x-init="init"
+>
+	<p
+		x-show="status"
+		x-text="status"
+		style="display: none;"
+	></p>
+
+	<div
+		x-show="subscription.ignoredTags"
+		style="display: none;"
+	>
+		<h2>Popular Tags</h2>
+		<ul
+			x-show="subscription.ignoredTags"
+		>
+			<template x-for="tag in popularTags">
+				<li>
+					<input
+						type="checkbox"
+						:checked="subscription.ignoredTags && !subscription.ignoredTags.includes( tag.toLowerCase() )"
+						@click="updateTag(tag)"
+					/>
+					<label x-text="tag"></label>
+				</li>
+			</template>
+		</ul>
+	</div>
+
+	<div
+		x-show="subscription.ignoredTags && otherTags.length > 0"
+		style="display: none;"
+	>
+		<h2>Other Tags</h2>
+		<ul>
+			<template x-for="tag in otherTags">
+				<li>
+					<input
+						type="checkbox"
+						:checked="subscription.ignoredTags && !subscription.ignoredTags.includes( tag.toLowerCase() )"
+						@click="updateTag(tag)"
+					/>
+					<label x-text="tag"></label>
+				</li>
+			</template>
+		</ul>
+	</div>
+</div>
+
+<script>
+	let api = {
+		url: "/api/v1",
+
+		getSubscription( subscriptionHash )
+		{
+			return fetch( `${this.url}/subscriptions/${subscriptionHash}` )
+				.then( response => response.json() )
+				.then( data =>
+				{
+					return data.subscription;
+				})
+				.catch( error =>
+				{
+					console.error( error );
+				});
+		},
+
+		getTags()
+		{
+			return fetch( `${this.url}/static/tags` )
+				.then( response => response.json() )
+				.then( data =>
+				{
+					return data.tags;
+				})
+				.catch( error =>
+				{
+					console.error( error );
+				});
+		},
+
+		updateSubscription( subscriptionHash, ignoredTags )
+		{
+			return fetch( `${this.url}/subscriptions/${subscriptionHash}`,
+					{
+						method: "PUT",
+						body: JSON.stringify( {
+							"ignored_tags": JSON.stringify( ignoredTags ),
+						}),
+						headers: {
+							'Content-Type': 'application/json'
+						},
+						redirect: 'follow',
+					}
+				)
+				.then( response => response.json() )
+				.then( data =>
+				{
+					if( data.subscription )
+					{
+						return data.subscription;
+					}
+					else
+					{
+						return {
+							error: true,
+						};
+					}
+				})
+				.catch( error =>
+				{
+					console.error( error );
+				});
+		},
+	};
+
+	let app = {
+		subscription: {
+			hash: "",
+			ignoredTags: null,
+		},
+
+		tags: [],
+		get popularTags()
+		{
+			return this.tags.slice( 0, 5 );
+		},
+		get otherTags()
+		{
+			return this.tags
+				.slice( 5 )
+				.sort( (a, b) =>
+				{
+					if( a > b )
+					{
+						return 1;
+					}
+					else
+					{
+						return -1;
+					}
+				});
+		},
+
+		status: null,
+		updateTimer: null,
+		async updateTag( tag )
+		{
+			let ignoredTagsIndex = this.subscription.ignoredTags.indexOf( tag.toLowerCase() );
+			if( ignoredTagsIndex > -1 )
+			{
+				this.subscription.ignoredTags.splice( ignoredTagsIndex, 1 );
+			}
+			else
+			{
+				this.subscription.ignoredTags.push( tag.toLowerCase() );
+			}
+
+			if( this.updateTimer )
+			{
+				clearTimeout( this.updateTimer );
+			}
+			this.updateTimer = setTimeout( async () =>
+			{
+				let result = await api.updateSubscription( this.subscription.hash, this.subscription.ignoredTags );
+				if( result.error )
+				{
+					this.status = "🎈 There was a problem...";
+				}
+				else
+				{
+					this.status = "✅ Saved!";
+					setTimeout( () => this.status = null, 1500 );
+				}
+			}, 250 );
+		},
+
+		/* Methods */
+		async init()
+		{
+			let url = new URL( window.location.href );
+			let subscriptionHash = url.pathname.split( "/" )[2];
+
+			if( subscriptionHash === "" )
+			{
+				window.location.href = "/";
+				return;
+			}
+
+			this.subscription.hash = subscriptionHash;
+			try
+			{
+				let tags = await api.getTags();
+				this.tags = tags;
+
+				let subscription = await api.getSubscription( subscriptionHash );
+				this.subscription.ignoredTags = subscription["ignored_tags"];
+			}
+			catch( error )
+			{
+				console.error( error );
+			}
+		},
+	};
+</script>

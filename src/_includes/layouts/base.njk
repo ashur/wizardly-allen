@@ -1,0 +1,59 @@
+---
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	{%- set description -%}{% if description %}{{ description }}{% else %}{{ site.description }}{% endif %}{% endset -%}
+	{%- set title -%}{% if title %}{{ title }} | {{ site.title }}{% else %}{{ site.title }} | {{ description }}{% endif %}{% endset -%}
+	{%- set imageUrl -%}{% if imageUrl %}{{ imageUrl }}{% else %}{{ imageUrl }}{% endif %}{% endset -%}
+
+	<title>{{ title }}</title>
+
+	<meta name="title" content="{{ title }}">
+	<meta name="description" content="{{ description | striptags }}">
+
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="{{ site.url }}">
+	<meta property="og:title" content="{{ title }}">
+	<meta property="og:description" content="{{ description | striptags }}">
+	<meta property="og:image" content="{{ imageUrl }}">
+
+	<!-- Twitter -->
+	<meta property="twitter:card" content="summary_large_image">
+	<meta property="twitter:url" content="{{ site.url }}">
+	<meta property="twitter:title" content="{{ title }}">
+	<meta property="twitter:description" content="{{ description | striptags }}">
+	<meta property="twitter:image" content="{{ imageUrl }}">
+
+	{%- set criticalStyle -%}
+		{# {% include "css/reset.css" %}
+		{% include "css/global.css" %}
+		{% include "css/composition.css" %}
+		{% include "css/utilities.css" %}
+		{% include "css/blocks.css" %}
+		{% include "css/fonts.css" %}
+
+		{% if styles.critical[page.filePathStem] and styles.critical[page.filePathStem].length > 0 %}
+			{{ styles.critical[page.filePathStem] | unique | reverse | join( "\n" ) | safe }}
+		{% endif %} #}
+	{%- endset -%}
+
+	<style>
+		{# {{ criticalStyle | cssmin | safe }} #}
+	</style>
+
+	{% if styles.external[page.filePathStem] and styles.external[page.filePathStem].length > 0 %}
+	<link rel="stylesheet" href="/styles/{{ page.filePathStem | replace( '/pages/', '' ) }}.css" media="print" onload="this.media='all'">
+	{% endif %}
+
+	{% for script in externalScripts %}
+	<script src="{{ script }}" defer></script>
+	{% endfor %}
+</head>
+<body>
+	{{ content | safe }}
+</body>
+</html>

@@ -16,6 +16,12 @@
   force = false
 
 [[redirects]]
+  from = "/configure/:hash"
+  to = "/configure/?hash=:hash"
+  status = 200
+  force = true
+
+[[redirects]]
   from = "/feed/:hash"
   to = "/.netlify/functions/feeds/:hash"
   status = 200
