@@ -110,7 +110,7 @@ app.post( "/api/:apiVersion/subscriptions", async (req, res) =>
 		(
 			{
 				hash: uniqueSlug( Date.now().toString() + uniqueSlug() ),
-				ignored_tags: [],
+				ignored_tags: ["jokes"],
 			}
 		);
 
