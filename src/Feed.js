@@ -55,7 +55,11 @@ class Feed
 					post.content += `\n<p><em>via <a href="${post.source.url}">${post.source.name}</a></em></p>`;
 				}
 
-				post.content += `\n<p><a href="${options.site.url}/configure/${options.subscriptionHash}">⚙︎</a></p>`;
+				let tags = post.tags
+					.map( tag => tag.toLowerCase() )
+					.join( "," );
+
+				post.content += `\n<p><a href="${options.site.url}/configure/${options.subscriptionHash}#${tags}">⚙︎</a></p>`;
 
 				return post;
 			})
