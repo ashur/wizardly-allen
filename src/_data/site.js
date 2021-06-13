@@ -1,5 +1,3 @@
-console.log( process.env );
-
 module.exports = {
 	title: "Invisible Link",
 	description: "An RSS-only linkblog",
@@ -10,3 +8,5 @@ module.exports = {
 		link: "https://ashur.cab/rera"
 	}
 }
+
+console.log( ">>> URL:", process.env.DEPLOY_PRIME_URL || process.env.URL );
