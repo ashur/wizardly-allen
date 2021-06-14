@@ -55,45 +55,37 @@ externalScripts:
 		<p>The feed you requested could not be found. <a href="/subscribe">Subscribe now.</a></p>
 	</div>
 
-	{# <div
-		x-show="subscription.ignoredTags"
-		style="display: none;"
-	>
-		<h2>Popular Tags</h2>
-		<ul
-			x-show="subscription.ignoredTags"
-		>
-			<template x-for="tag in popularTags">
-				<li>
-					<input
-						type="checkbox"
-						:checked="subscription.ignoredTags && !subscription.ignoredTags.includes( tag.toLowerCase() )"
-						@click="toggleTag(tag)"
-					/>
-					<label x-text="tag"></label>
-				</li>
-			</template>
-		</ul>
-	</div>
-
 	<div
-		x-show="subscription.ignoredTags && otherTags.length > 0"
+		x-show="subscription.found"
 		style="display: none;"
 	>
-		<h2>Other Tags</h2>
-		<ul>
-			<template x-for="tag in otherTags">
-				<li>
-					<input
-						type="checkbox"
-						:checked="subscription.ignoredTags && !subscription.ignoredTags.includes( tag.toLowerCase() )"
-						@click="toggleTag(tag)"
-					/>
-					<label x-text="tag"></label>
-				</li>
-			</template>
-		</ul>
-	</div> #}
+		<p>
+			<a
+				x-text="subscription.url"
+				:href="subscription.url"
+			></a>
+
+			<div>
+				<input
+					type="radio"
+					id="format-json"
+					name="format"
+					:checked="subscription.format === 'json'"
+					@click="subscription.format = 'json'"
+				/>
+				<label for="format-json">JSON</label>
+	
+				<input
+					type="radio"
+					id="format-xml"
+					name="format"
+					:checked="subscription.format === 'xml'"
+					@click="subscription.format = 'xml'"
+				/>
+				<label for="format-xml">XML</label>
+			</div>
+		</p>
+	</div>
 </div>
 
 <script>
@@ -168,6 +160,13 @@ externalScripts:
 			hash: "",
 			ignoredTags: null,
 			found: null,
+
+			format: "json",
+			get url()
+			{
+				let extension = this.format == "json" ? "" : ".xml";
+				return `{{ site.url }}/feed/${this.hash}${extension}`;
+			},
 		},
 
 		status: null,
