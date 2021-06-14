@@ -20,7 +20,7 @@ class Feed
 	{
 		let feedOptions = {
 			title: options.site.title,
-			description: options.site.description,
+			description: options.site.description.short,
 			link: options.site.url,
 			id: options.site.url,
 			author: options.site.author,

@@ -6,7 +6,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	{%- set description -%}{% if description %}{{ description }}{% else %}{{ site.description }}{% endif %}{% endset -%}
+	{%- set description -%}{% if description %}{{ description }}{% else %}{{ site.description.short }}{% endif %}{% endset -%}
 	{%- set title -%}{% if title %}{{ title }} | {{ site.title }}{% else %}{{ site.title }} | {{ description }}{% endif %}{% endset -%}
 	{%- set imageUrl -%}{% if imageUrl %}{{ imageUrl }}{% else %}{{ imageUrl }}{% endif %}{% endset -%}
 
