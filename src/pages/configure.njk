@@ -56,21 +56,14 @@ externalScripts:
 		</ul>
 	</details>
 
-	{# <div
-		x-show="subscription.found === false"
-		style="display: none;"
-	>
-		<p>The feed you requested could not be found. <a href="/subscribe">Subscribe now.</a></p>
-	</div> #}
-
 	<div
-		x-show="subscription.found"
-		style="display: none;"
+		{# x-show="subscription.found" #}
+		{# style="display: none;" #}
 	>
 		<p>
 			<a
 				x-text="subscription.url"
-				:href="subscription.url"
+				:href="subscription.found ? subscription.url : false"
 			></a>
 
 			<div>
