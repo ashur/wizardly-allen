@@ -9,11 +9,15 @@ externalScripts:
 	x-init="init"
 >
 	<p
-		x-show="status"
-		x-text="status"
-		style="display: none; position: fixed; bottom: 0em; right: 1em; left: 1em; padding: 0.75em 1.25em; background: #333; color: #fff;"
+		class="[][][ status ]"
+		x-show="status.message"
+		x-text="status.message"
+		style="display: none; position: fixed; bottom: 0em; right: 1em; left: 1em; padding: 0.75em 1.25em; color: #fff;"
+
+		:class="status.type === 'error' ? 'error' : ( status.type === 'success' ? 'success' : '' )"
 	></p>
 
+	<ul style="list-style-type: none; padding: 1em;">
 	{% for tag in (postTags.tags.slice( 0, 5 ) | sort) %}
 		<li>
 			<input
@@ -29,31 +33,35 @@ externalScripts:
 			<label for="tag-{{ tag }}">{{ tag }}</label>
 		</li>
 	{% endfor %}
+	</ul>
 
-	<h2>Other Tags</h2>
+	<details>
+		<summary>Additional topics</summary>
+		<ul>
+			{% for tag in (postTags.tags.slice( 5 ) | sort) %}
+				<li>
+					<input
+						type="checkbox"
+						id="tag-{{ tag }}"
+						:checked="!subscription.found || (subscription.ignoredTags && !subscription.ignoredTags.includes( '{{ tag | lower}}' ))"
+						:disabled="!subscription.found"
+						@click="toggleTag( '{{ tag }}' )"
 
-	{% for tag in (postTags.tags.slice( 5 ) | sort) %}
-		<li>
-			<input
-				type="checkbox"
-				id="tag-{{ tag }}"
-				:checked="!subscription.found || (subscription.ignoredTags && !subscription.ignoredTags.includes( '{{ tag | lower}}' ))"
-				:disabled="!subscription.found"
-				@click="toggleTag( '{{ tag }}' )"
+						checked
+						disabled
+					/>
+					<label for="tag-{{ tag }}">{{ tag }}</label>
+				</li>
+			{% endfor %}
+		</ul>
+	</details>
 
-				checked
-				disabled
-			/>
-			<label for="tag-{{ tag }}">{{ tag }}</label>
-		</li>
-	{% endfor %}
-
-	<div
+	{# <div
 		x-show="subscription.found === false"
 		style="display: none;"
 	>
 		<p>The feed you requested could not be found. <a href="/subscribe">Subscribe now.</a></p>
-	</div>
+	</div> #}
 
 	<div
 		x-show="subscription.found"
@@ -74,7 +82,7 @@ externalScripts:
 					@click="subscription.format = 'json'"
 				/>
 				<label for="format-json">JSON</label>
-	
+
 				<input
 					type="radio"
 					id="format-xml"
@@ -161,7 +169,7 @@ externalScripts:
 			ignoredTags: null,
 			found: null,
 
-			format: "json",
+			format: "xml",
 			get url()
 			{
 				let extension = this.format == "json" ? "" : ".xml";
@@ -169,7 +177,11 @@ externalScripts:
 			},
 		},
 
-		status: null,
+		status: {
+			message: "Loading...",
+			error: false,
+			type: null,
+		},
 		async toggleTag( tag )
 		{
 			let ignoredTagsIndex = this.subscription.ignoredTags.indexOf( tag.toLowerCase() );
@@ -185,12 +197,14 @@ externalScripts:
 			let result = await api.updateSubscription( this.subscription.hash, this.subscription.ignoredTags );
 			if( result.error )
 			{
-				this.status = "🎈 There was a problem...";
+				this.status.message = "There was a problem...";
+				this.status.type = error;
 			}
 			else
 			{
-				this.status = "Changes saved";
-				setTimeout( () => this.status = null, 1750 );
+				this.status.message = "Changes saved";
+				this.status.type = "success";
+				setTimeout( () => this.status = { message: '', type: null }, 1750 );
 			}
 		},
 
@@ -214,9 +228,12 @@ externalScripts:
 				{
 					this.subscription.found = true;
 					this.subscription.ignoredTags = subscription["ignored_tags"];
+					this.status.message = null;
 				}
 				else
 				{
+					this.status.message = "The feed you requested could not be found";
+					this.status.type = "error";
 					this.subscription.found = false;
 				}
 			}
@@ -227,3 +244,17 @@ externalScripts:
 		},
 	};
 </script>
+
+<style>
+	.status {
+		background-color: #4d5562;
+	}
+	.status.success {
+		background-color: #42936c;
+		color: white;
+	}
+	.status.error {
+		background-color: #8d2822;
+		color: white;
+	}
+</style>
