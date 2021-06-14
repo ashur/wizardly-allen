@@ -69,7 +69,6 @@ app.get( "/api/:apiVersion/subscriptions/:hash", async (req, res) =>
 				res.json({
 					title: "Not Found",
 					reason: "not-found",
-					error: error,
 				});
 			}
 			else
