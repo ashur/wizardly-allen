@@ -3,6 +3,8 @@ title: Configure your feed
 description: Customize the content of your feed
 externalScripts:
   - "https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.2/dist/alpine.min.js"
+defaults:
+  format: xml
 ---
 <div
 	x-data="app"
@@ -56,15 +58,18 @@ externalScripts:
 		</ul>
 	</details>
 
-	<div
-		{# x-show="subscription.found" #}
-		{# style="display: none;" #}
-	>
-		<p>
-			<a
-				x-text="subscription.url"
-				:href="subscription.found ? subscription.url : false"
-			></a>
+	<form>
+		<fieldset
+			:disabled="!subscription.found"
+		>
+			<input
+				type="text"
+				value="{{ site.url }}/feed/"
+				x-model="subscription.url"
+			/>
+			<button
+				@click="status.message = 'Copied!'; status.type = 'success'"
+			>Copy</button>
 
 			<div>
 				<input
@@ -85,8 +90,9 @@ externalScripts:
 				/>
 				<label for="format-xml">XML</label>
 			</div>
-		</p>
-	</div>
+		</fieldset>
+	</form>
+
 </div>
 
 <script>
@@ -162,7 +168,7 @@ externalScripts:
 			ignoredTags: null,
 			found: null,
 
-			format: "xml",
+			format: "{{ defaults.format }}",
 			get url()
 			{
 				let extension = this.format == "json" ? "" : ".xml";
