@@ -6,6 +6,7 @@ externalScripts:
 defaults:
   format: xml
 ---
+{%- from "components/component.njk" import component with context -%}
 <div
 	x-data="app"
 	x-init="init"
@@ -64,6 +65,7 @@ defaults:
 
 	{# <form> #}
 		<fieldset
+			class="[][ stack ][]"
 			:disabled="!subscription.found"
 		>
 			<input
@@ -75,28 +77,9 @@ defaults:
 				@click="status.message = 'Copied!'; status.type = 'success'"
 			>Copy</button>
 
-			<div>
-				<input
-					type="radio"
-					id="format-json"
-					name="format"
-					:checked="subscription.format === 'json'"
-					@click="subscription.format = 'json'"
-				/>
-				<label for="format-json">JSON</label>
-
-				<input
-					type="radio"
-					id="format-xml"
-					name="format"
-					:checked="subscription.format === 'xml'"
-					@click="subscription.format = 'xml'"
-				/>
-				<label for="format-xml">XML</label>
-			</div>
+			{{ component( "FeedFormat" ) }}
 		</fieldset>
 	{# </form> #}
-
 </div>
 
 <script>

@@ -1,0 +1,69 @@
+{% macro render(options) %}
+<div class="[][][ FeedFormat ]">
+	<input
+		class="[][ visually-hidden ][]"
+		type="radio"
+		id="format-json"
+		name="format"
+		:checked="subscription.format === 'json'"
+		@click="subscription.format = 'json'"
+	/>
+	<label for="format-json">JSON</label>
+
+	<input
+		class="[][ visually-hidden ][]"
+		type="radio"
+		id="format-xml"
+		name="format"
+		:checked="subscription.format === 'xml'"
+		@click="subscription.format = 'xml'"
+	/>
+	<label for="format-xml">XML</label>
+</div>
+{% endmacro %}
+
+{% set css %}
+<style>
+</style>
+{% endset %}
+
+{% set criticalCss %}
+<style>
+.FeedFormat {
+	--color-tint: rgba(31, 41, 55, 1);
+
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	max-width: 20ch;
+	width: 50%;
+	border: solid var( --color-tint ) 1px;
+	border-radius: 2em;
+	padding: 2px;
+
+	font-size: var( --size--1 );
+}
+	[disabled] .FeedFormat {
+		--color-tint: rgba(156, 163, 175, 1);
+		background-color: rgba(243, 244, 246, 1);
+	}
+
+.FeedFormat input:checked {
+	border: solid red 1px;
+}
+
+.FeedFormat label {
+	cursor: pointer;
+	border-radius: 1em;
+	padding: 0.25em;
+	color: var( --color-tint );
+	text-align: center;
+}
+	.FeedFormat input:checked + label {
+		background-color: var( --color-tint );
+		color: white;
+	}
+	[disabled] .FeedFormat label {
+		cursor: auto;
+	}
+</style>
+{% endset %}
