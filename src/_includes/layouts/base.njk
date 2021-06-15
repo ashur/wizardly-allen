@@ -1,5 +1,3 @@
----
----
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,20 +27,22 @@
 	<meta property="twitter:image" content="{{ imageUrl }}">
 
 	{%- set criticalStyle -%}
-		{# {% include "css/reset.css" %}
+		{% include "css/reset.css" %}
 		{% include "css/global.css" %}
 		{% include "css/composition.css" %}
 		{% include "css/utilities.css" %}
+		{#
 		{% include "css/blocks.css" %}
 		{% include "css/fonts.css" %}
+		#}
 
 		{% if styles.critical[page.filePathStem] and styles.critical[page.filePathStem].length > 0 %}
-			{{ styles.critical[page.filePathStem] | unique | reverse | join( "\n" ) | safe }}
-		{% endif %} #}
+			{{ styles.critical[page.filePathStem] | nunjucksComponents_unique | reverse | join( "\n" ) | safe }}
+		{% endif %}
 	{%- endset -%}
 
 	<style>
-		{# {{ criticalStyle | cssmin | safe }} #}
+		{{ criticalStyle | safe }}
 	</style>
 
 	{% if styles.external[page.filePathStem] and styles.external[page.filePathStem].length > 0 %}

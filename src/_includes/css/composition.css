@@ -1,0 +1,19 @@
+.box {
+	padding: var( --page-size );
+}
+
+.center {
+	margin: 0 auto;
+}
+
+.stack > * + * {
+	margin-top: var( --stack-size );
+}
+
+.stack-lg > * + * {
+	margin-top: var( --stack-lg-size );
+}
+
+.stack-xl > * + * {
+	margin-top: var( --stack-xl-size );
+}
