@@ -16,6 +16,7 @@
   "dependencies": {
     "@11ty/eleventy": "^0.12.1",
     "@11ty/eleventy-cache-assets": "^2.2.1",
+    "@aaashur/eleventy-plugin-nunjucks-components": "github:ashur/eleventy-plugin-nunjucks-components",
     "@supabase/supabase-js": "^1.11.17",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",

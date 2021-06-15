@@ -1,0 +1,20 @@
+{% macro component( name, params ) %}
+	{%- import "components/" + name + ".njk" as Component with context -%}
+
+	{% if Component.criticalCss %}
+		{{ styles.critical | nunjucksComponents_defineProperty( page.filePathStem, [] ) | nunjucksComponents_quiet }}
+		{{ styles.critical[page.filePathStem].push( Component.criticalCss | striptags(true) ) | nunjucksComponents_quiet }}
+	{% endif %}
+
+	{% if Component.css %}
+		{{ styles.external | nunjucksComponents_defineProperty( page.filePathStem, [] ) | nunjucksComponents_quiet }}
+		{{ styles.external[page.filePathStem].push( Component.css | striptags(true) ) | nunjucksComponents_quiet }}
+	{% endif %}
+
+	{% if caller %}
+		{% call Component.render( params ) %}{{ caller() | escape }}{% endcall %}
+	{% else %}
+		{{- Component.render( params ) | escape -}}
+	{% endif %}
+
+{% endmacro %}

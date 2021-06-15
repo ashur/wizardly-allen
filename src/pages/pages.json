@@ -1,4 +1,8 @@
 {
 	"permalink": "/{{ page.fileSlug }}/index.html",
-	"layout": "layouts/page.njk"
+	"layout": "layouts/page.njk",
+	"styles": {
+		"critical": {},
+		"external": {}
+	}
 }

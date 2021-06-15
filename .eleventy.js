@@ -1,5 +1,9 @@
+const nunjucksComponents = require( "@aaashur/eleventy-plugin-nunjucks-components" );
+
 module.exports = config =>
 {
+	config.addPlugin( nunjucksComponents );
+
 	/* Filters */
 	config.addFilter( "dump", json =>
 	{
