@@ -18,67 +18,16 @@ externalScripts:
 		:class="status.type === 'error' ? 'error' : ( status.type === 'success' ? 'success' : '' )"
 	></p>
 
-	<ul
-		class="[][][ loading ]"
-		:class="{ 'loading': !subscription.found }"
-		style="list-style-type: none; padding: 1em;"
+	{{ component( "TagList", { tags: postTags.tags } ) }}
+
+	<fieldset
+		class="[][ stack ][]"
+		:disabled="!subscription.found"
 	>
-	{% for tag in (postTags.tags.slice( 0, 5 ) | sort) %}
-		<li>
-			<input
-				type="checkbox"
-				id="tag-{{ tag }}"
-				:checked="!subscription.found || (subscription.ignoredTags && !subscription.ignoredTags.includes( '{{ tag | lower}}' ))"
-				:disabled="!subscription.found"
-				@click="toggleTag( '{{ tag }}' )"
+		{{ component( "FeedUrl" ) }}
 
-				checked
-				disabled
-			/>
-			<label for="tag-{{ tag }}">{{ tag }}</label>
-		</li>
-	{% endfor %}
-	</ul>
-
-	<details>
-		<summary>Additional topics</summary>
-		<ul>
-			{% for tag in (postTags.tags.slice( 5 ) | sort) %}
-				<li>
-					<input
-						type="checkbox"
-						id="tag-{{ tag }}"
-						:checked="!subscription.found || (subscription.ignoredTags && !subscription.ignoredTags.includes( '{{ tag | lower}}' ))"
-						:disabled="!subscription.found"
-						@click="toggleTag( '{{ tag }}' )"
-
-						checked
-						disabled
-					/>
-					<label for="tag-{{ tag }}">{{ tag }}</label>
-				</li>
-			{% endfor %}
-		</ul>
-	</details>
-
-	{# <form> #}
-		<fieldset
-			class="[][ stack ][]"
-			:disabled="!subscription.found"
-		>
-			{{ component( "FeedUrl" ) }}
-			{# <input
-				type="text"
-				value="{{ site.url }}/feed/"
-				x-model="subscription.url"
-			/>
-			<button
-				@click="status.message = 'Copied!'; status.type = 'success'"
-			>Copy</button> #}
-
-			{{ component( "FeedFormat" ) }}
-		</fieldset>
-	{# </form> #}
+		{{ component( "FeedFormat" ) }}
+	</fieldset>
 </div>
 
 <script>
@@ -113,14 +62,12 @@ externalScripts:
 				});
 		},
 
-		updateSubscription( subscriptionHash, property, value )
+		updateSubscription( subscription )
 		{
-			return fetch( `${this.url}/subscriptions/${subscriptionHash}`,
+			return fetch( `${this.url}/subscriptions/${subscription.hash}`,
 					{
 						method: "PUT",
-						body: JSON.stringify( {
-							[property]: JSON.stringify( value ),
-						}),
+						body: JSON.stringify( subscription ),
 						headers: {
 							'Content-Type': 'application/json'
 						},
@@ -163,16 +110,18 @@ externalScripts:
 
 		model: {},
 
+		status: {
+			message: "Loading...",
+			type: null,
+			timeout: null,
+		},
+
+		/* Methods */
 		get feedUrl()
 		{
 			return `{{ site.url }}/feed/${this.model.hash || ""}`;
 		},
 
-		status: {
-			message: "Loading...",
-			error: false,
-			type: null,
-		},
 		async toggleTag( tag )
 		{
 			let ignoredTagsIndex = this.subscription.ignoredTags.indexOf( tag.toLowerCase() );
@@ -185,18 +134,7 @@ externalScripts:
 				this.subscription.ignoredTags.push( tag.toLowerCase() );
 			}
 
-			let result = await api.updateSubscription( this.subscription.hash, this.subscription.ignoredTags );
-			if( result.error )
-			{
-				this.status.message = "There was a problem...";
-				this.status.type = error;
-			}
-			else
-			{
-				this.status.message = "Changes saved";
-				this.status.type = "success";
-				setTimeout( () => this.status = { message: '', type: null }, 1750 );
-			}
+			this.updateSubscription();
 		},
 
 		/* Methods */
@@ -251,34 +189,36 @@ externalScripts:
 
 		setStatus( message, type )
 		{
+			if( this.status.timeout )
+			{
+				clearTimeout( this.status.timeout );
+			}
+
 			this.status.message = message;
 			this.status.type = type;
 
 			if( type !== "error" )
 			{
-				setTimeout( () => this.status = { message: '', type: null }, 2000 );
+				this.status.timeout = setTimeout( () =>
+				{
+					this.status.message = "";
+					this.status.type = null;
+					
+				}, 2000 );
 			}
 		},
 
 		async updateSubscription( property )
 		{
-			let result = await api.updateSubscription
-			(
-				this.subscription.hash,
-				property,
-				this.subscription[property]
-			);
+			let result = await api.updateSubscription( this.model );
 
 			if( result.error )
 			{
-				this.status.message = "There was a problem...";
-				this.status.type = result.error;
+				this.setStatus( result.error, "error" );
 			}
 			else
 			{
-				this.status.message = "Changes saved";
-				this.status.type = "success";
-				setTimeout( () => this.status = { message: '', type: null }, 1750 );
+				this.setStatus( "Saved", "success" )
 			}
 		},
 	};

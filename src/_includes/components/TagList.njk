@@ -1,0 +1,65 @@
+{% macro render(options) %}
+<div class="[][][ TagList ]">
+	{% set popularTags = (options.tags.slice( 0, 5 ) | sort) %}
+	{% set moreTags = (options.tags.slice( 5 ) | sort) %}
+
+	<ul>
+		{% for tag in popularTags %}
+		<li>
+			<input
+					type="checkbox"
+					id="tag-{{ tag }}"
+					:checked="!subscription.found || (subscription.ignoredTags && !subscription.ignoredTags.includes( '{{ tag | lower}}' ))"
+					:disabled="!subscription.found"
+					@click="toggleTag( '{{ tag }}' )"
+	
+					checked
+					disabled
+				/>
+			<label for="tag-{{ tag }}">{{ tag }}</label>
+		</li>
+		{% endfor %}
+	</ul>
+
+	{% if moreTags %}
+	<details>
+		<summary>More</summary>
+
+		<ul>
+			{% for tag in moreTags %}
+			<li>
+				<input
+						type="checkbox"
+						id="tag-{{ tag }}"
+						:checked="!subscription.found || (subscription.ignoredTags && !subscription.ignoredTags.includes( '{{ tag | lower}}' ))"
+						:disabled="!subscription.found"
+						@click="toggleTag( '{{ tag }}' )"
+		
+						checked
+						disabled
+					/>
+				<label for="tag-{{ tag }}">{{ tag }}</label>
+			</li>
+			{% endfor %}
+		</ul>
+	</details>
+	{% endif %}
+</div>
+{% endmacro %}
+
+{% set css %}
+<style>
+</style>
+{% endset %}
+
+{% set criticalCss %}
+<style>
+.TagList {
+	
+}
+.TagList ul {
+	list-style-type: none;
+	padding-left: 0;
+}
+</style>
+{% endset %}
