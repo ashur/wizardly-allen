@@ -17,6 +17,8 @@
 	--fluid-4: clamp( var( --size-3 ), var( --fluid-scaler ), var( --size-4 ) );
 	--fluid-5: clamp( var( --size-4 ), var( --fluid-scaler ), var( --size-5 ) );
 
+	--font-mono: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono", "Roboto Mono", "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro", "Fira Mono", "Droid Sans Mono", "Courier New", monospace;
+
 	--measure: 60ch;
 	--page-size: var( --size-1 );
 	--stack-size: var( --size-0 );

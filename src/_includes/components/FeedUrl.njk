@@ -1,0 +1,38 @@
+{% macro render(options) %}
+<div class="[][][ FeedUrl ]">
+	<input
+		class="[][ mono ][ FeedUrl-url ]"
+		type="text"
+		id="feed-url"
+		x-model="feedUrl"
+	/>
+
+	<button
+		class="[][][ FeedUrl-copy ]"
+		@click="copyUrl"
+	>Copy</button>
+</div>
+{% endmacro %}
+
+{% set css %}
+<style>
+</style>
+{% endset %}
+
+{% set criticalCss %}
+<style>
+.FeedUrl {
+	display: grid;
+	grid-template-columns: 1fr auto;
+	grid-gap: var( --size--2 );
+}
+.FeedUrl-url {
+	width: 100%;
+	padding: var( --size--3 ) var( --size--2 );
+}
+.FeedUrl-copy {
+	cursor: pointer;
+	padding: var( --size--3 ) var( --size--1 );
+}
+</style>
+{% endset %}

@@ -3,8 +3,6 @@ title: Configure Feed
 description: Customize the content of your feed
 externalScripts:
   - "https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.2/dist/alpine.min.js"
-defaults:
-  format: xml
 ---
 {%- from "components/component.njk" import component with context -%}
 <div
@@ -15,7 +13,7 @@ defaults:
 		class="[][][ status ]"
 		x-show="status.message"
 		x-text="status.message"
-		style="display: none; position: fixed; bottom: 0em; right: 1em; left: 1em; padding: 0.75em 1.25em; color: #fff;"
+		style="display: none; position: fixed; bottom: 1em; right: 1em; left: 1em; padding: 0.75em 1.25em; color: #fff;"
 
 		:class="status.type === 'error' ? 'error' : ( status.type === 'success' ? 'success' : '' )"
 	></p>
@@ -68,14 +66,15 @@ defaults:
 			class="[][ stack ][]"
 			:disabled="!subscription.found"
 		>
-			<input
+			{{ component( "FeedUrl" ) }}
+			{# <input
 				type="text"
 				value="{{ site.url }}/feed/"
 				x-model="subscription.url"
 			/>
 			<button
 				@click="status.message = 'Copied!'; status.type = 'success'"
-			>Copy</button>
+			>Copy</button> #}
 
 			{{ component( "FeedFormat" ) }}
 		</fieldset>
@@ -114,13 +113,13 @@ defaults:
 				});
 		},
 
-		updateSubscription( subscriptionHash, ignoredTags )
+		updateSubscription( subscriptionHash, property, value )
 		{
 			return fetch( `${this.url}/subscriptions/${subscriptionHash}`,
 					{
 						method: "PUT",
 						body: JSON.stringify( {
-							"ignored_tags": JSON.stringify( ignoredTags ),
+							[property]: JSON.stringify( value ),
 						}),
 						headers: {
 							'Content-Type': 'application/json'
@@ -155,12 +154,18 @@ defaults:
 			ignoredTags: null,
 			found: null,
 
-			format: "{{ defaults.format }}",
+			format: null,
 			get url()
 			{
-				let extension = this.format == "json" ? "" : ".xml";
-				return `{{ site.url }}/feed/${this.hash}${extension}`;
+				return `{{ site.url }}/feed/${this.hash}`;
 			},
+		},
+
+		model: {},
+
+		get feedUrl()
+		{
+			return `{{ site.url }}/feed/${this.model.hash || ""}`;
 		},
 
 		status: {
@@ -195,6 +200,19 @@ defaults:
 		},
 
 		/* Methods */
+		async copyUrl()
+		{
+			try
+			{
+				navigator.clipboard.writeText( this.feedUrl );
+				this.setStatus( "Copied feed URL", "success" );
+			}
+			catch( error )
+			{
+				this.setStatus( error.message, "error" );
+			}
+		},
+
 		async init()
 		{
 			let url = new URL( window.location.href );
@@ -212,8 +230,10 @@ defaults:
 				let subscription = await api.getSubscription( subscriptionHash );
 				if( subscription )
 				{
-					this.subscription.found = true;
+					this.model = subscription;
 					this.subscription.ignoredTags = subscription["ignored_tags"];
+					this.subscription.format = subscription.format;
+					this.subscription.found = true;
 					this.status.message = null;
 				}
 				else
@@ -226,6 +246,39 @@ defaults:
 			catch( error )
 			{
 				console.error( error );
+			}
+		},
+
+		setStatus( message, type )
+		{
+			this.status.message = message;
+			this.status.type = type;
+
+			if( type !== "error" )
+			{
+				setTimeout( () => this.status = { message: '', type: null }, 2000 );
+			}
+		},
+
+		async updateSubscription( property )
+		{
+			let result = await api.updateSubscription
+			(
+				this.subscription.hash,
+				property,
+				this.subscription[property]
+			);
+
+			if( result.error )
+			{
+				this.status.message = "There was a problem...";
+				this.status.type = result.error;
+			}
+			else
+			{
+				this.status.message = "Changes saved";
+				this.status.type = "success";
+				setTimeout( () => this.status = { message: '', type: null }, 1750 );
 			}
 		},
 	};

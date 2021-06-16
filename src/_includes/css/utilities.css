@@ -1,3 +1,8 @@
+.mono {
+	font-family: var( --font-mono );
+	font-size: calc( var( --size-0 ) * 0.875 );
+}
+
 .stack > * + * {
 	margin-top: var( --stack-size );
 }

@@ -22,7 +22,6 @@ async function getFeed (req, res)
 {
 	let ext = path.extname( req.params.hash );
 	let hash = path.basename( req.params.hash, ext );
-	let format = ext === ".xml" ? "rss" : "json";
 
 	try
 	{
@@ -67,6 +66,7 @@ async function getFeed (req, res)
 					ignoredTags: subscription.ignored_tags || []
 				});
 
+				let format = subscription.format === "xml" ? "rss" : "json";
 				res.send( feed[format]() );
 
 				await supabase.updateSubscription(
