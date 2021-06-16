@@ -22,7 +22,7 @@ externalScripts:
 
 	<fieldset
 		class="[][ stack ][]"
-		:disabled="!subscription.found"
+		:disabled="!model.hash"
 	>
 		{{ component( "FeedUrl" ) }}
 
@@ -48,32 +48,24 @@ externalScripts:
 				});
 		},
 
-		getTags()
+		updateSubscription( property )
 		{
-			return fetch( `${this.url}/static/tags` )
-				.then( response => response.json() )
-				.then( data =>
-				{
-					return data.tags;
-				})
-				.catch( error =>
-				{
-					console.error( error );
-				});
-		},
+			let value = Array.isArray( app.model[property] )
+				? JSON.stringify( app.model[property] )
+				: app.model[property];
 
-		updateSubscription( subscription )
-		{
-			return fetch( `${this.url}/subscriptions/${subscription.hash}`,
-					{
-						method: "PUT",
-						body: JSON.stringify( subscription ),
-						headers: {
-							'Content-Type': 'application/json'
-						},
-						redirect: 'follow',
-					}
-				)
+			let options = {
+				method: "PUT",
+				body: JSON.stringify({
+					[property]: value
+				}),
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				redirect: 'follow',
+			};
+
+			return fetch( `${this.url}/subscriptions/${app.model.hash}`, options )
 				.then( response => response.json() )
 				.then( data =>
 				{
@@ -96,17 +88,6 @@ externalScripts:
 	};
 
 	let app = {
-		subscription: {
-			hash: "",
-			ignoredTags: null,
-			found: null,
-
-			format: null,
-			get url()
-			{
-				return `{{ site.url }}/feed/${this.hash}`;
-			},
-		},
 
 		model: {},
 
@@ -114,27 +95,6 @@ externalScripts:
 			message: "Loading...",
 			type: null,
 			timeout: null,
-		},
-
-		/* Methods */
-		get feedUrl()
-		{
-			return `{{ site.url }}/feed/${this.model.hash || ""}`;
-		},
-
-		async toggleTag( tag )
-		{
-			let ignoredTagsIndex = this.subscription.ignoredTags.indexOf( tag.toLowerCase() );
-			if( ignoredTagsIndex > -1 )
-			{
-				this.subscription.ignoredTags.splice( ignoredTagsIndex, 1 );
-			}
-			else
-			{
-				this.subscription.ignoredTags.push( tag.toLowerCase() );
-			}
-
-			this.updateSubscription();
 		},
 
 		/* Methods */
@@ -151,6 +111,11 @@ externalScripts:
 			}
 		},
 
+		get feedUrl()
+		{
+			return `{{ site.url }}/feed/${this.model.hash || ""}`;
+		},
+
 		async init()
 		{
 			let url = new URL( window.location.href );
@@ -162,23 +127,16 @@ externalScripts:
 				return;
 			}
 
-			this.subscription.hash = subscriptionHash;
 			try
 			{
 				let subscription = await api.getSubscription( subscriptionHash );
 				if( subscription )
 				{
 					this.model = subscription;
-					this.subscription.ignoredTags = subscription["ignored_tags"];
-					this.subscription.format = subscription.format;
-					this.subscription.found = true;
-					this.status.message = null;
 				}
 				else
 				{
-					this.status.message = "The feed you requested could not be found";
-					this.status.type = "error";
-					this.subscription.found = false;
+					this.setStatus( "The feed you requested could not be found", "error" );
 				}
 			}
 			catch( error )
@@ -197,20 +155,36 @@ externalScripts:
 			this.status.message = message;
 			this.status.type = type;
 
-			if( type !== "error" )
+			if( type === "success" )
 			{
 				this.status.timeout = setTimeout( () =>
 				{
 					this.status.message = "";
 					this.status.type = null;
-					
+
 				}, 2000 );
 			}
 		},
 
+		async toggleTag( tag )
+		{
+			let ignoredTagsIndex = this.model.ignored_tags.indexOf( tag.toLowerCase() );
+			if( ignoredTagsIndex > -1 )
+			{
+				this.model.ignored_tags.splice( ignoredTagsIndex, 1 );
+			}
+			else
+			{
+				this.model.ignored_tags.push( tag.toLowerCase() );
+			}
+
+			this.updateSubscription( "ignored_tags" );
+		},
+
 		async updateSubscription( property )
 		{
-			let result = await api.updateSubscription( this.model );
+			this.setStatus( "Saving..." );
+			let result = await api.updateSubscription( property );
 
 			if( result.error )
 			{
