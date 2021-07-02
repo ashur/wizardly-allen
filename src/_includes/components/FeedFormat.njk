@@ -3,22 +3,24 @@
 	<input
 		class="[][ visually-hidden ][]"
 		type="radio"
+		id="feed-format-xml"
+		name="format"
+		:checked="model.format && model.format === 'xml'"
+		@click="model.format = 'xml'; updateSubscription('format')"
+
+		checked
+	/>
+	<label for="feed-format-xml">XML</label>
+
+	<input
+		class="[][ visually-hidden ][]"
+		type="radio"
 		id="feed-format-json"
 		name="format"
 		:checked="model.format && model.format === 'json'"
 		@click="model.format = 'json'; updateSubscription('format')"
 	/>
 	<label for="feed-format-json">JSON</label>
-
-	<input
-		class="[][ visually-hidden ][]"
-		type="radio"
-		id="feed-format-xml"
-		name="format"
-		:checked="model.format && model.format === 'xml'"
-		@click="model.format = 'xml'; updateSubscription('format')"
-	/>
-	<label for="feed-format-xml">XML</label>
 </div>
 {% endmacro %}
 

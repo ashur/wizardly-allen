@@ -2,6 +2,9 @@ const nunjucksComponents = require( "@aaashur/eleventy-plugin-nunjucks-component
 
 module.exports = config =>
 {
+	config.addPassthroughCopy({ "src/static": "/" });
+
+	/* Plugins */
 	config.addPlugin( nunjucksComponents );
 
 	/* Filters */

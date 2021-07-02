@@ -1,17 +1,21 @@
 {% macro render(options) %}
-<div class="[][][ FeedUrl ]">
+<fieldset
+	class="[][ measure ][ FeedUrl ]"
+	style="--transition-delay: 1.25s;"
+>
 	<input
-		class="[][ mono ][ FeedUrl-url ]"
+		class="[][ mono ][ FeedUrl-url  ]"
 		type="text"
 		id="feed-url"
 		x-model="feedUrl"
+		placeholder="{{ site.url }}/feed"
 	/>
 
 	<button
 		class="[][][ FeedUrl-copy ]"
 		@click="copyUrl"
 	>Copy</button>
-</div>
+</fieldset>
 {% endmacro %}
 
 {% set css %}
@@ -22,17 +26,36 @@
 {% set criticalCss %}
 <style>
 .FeedUrl {
+	--gap: var( --size--2 );
+	--measure: 40ch;
+
 	display: grid;
+	grid-template-rows: auto 1fr;
 	grid-template-columns: 1fr auto;
-	grid-gap: var( --size--2 );
+	grid-gap: var( --gap );
+
+	border: none;
+	padding: 0;
 }
+.FeedUrl label {
+	grid-column-start: 1;
+	grid-column-end: 3;
+}
+
 .FeedUrl-url {
 	width: 100%;
 	padding: var( --size--3 ) var( --size--2 );
 }
 .FeedUrl-copy {
 	cursor: pointer;
+	border: none;
+	border-radius: var( --size--3);
 	padding: var( --size--3 ) var( --size--1 );
+	background-color: #555;
+	color: white;
+}
+.FeedURL-copy:hover {
+	background-color: green;
 }
 </style>
 {% endset %}

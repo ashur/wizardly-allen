@@ -1,10 +1,59 @@
+.block-children > * {
+	display: block;
+}
+
+.color-cream {
+	color: var( --color-cream );
+}
+.color-green {
+	color: var( --color-green );
+}
+.color-purple {
+	color: var( --color-purple );
+}
+
+.font-regular {
+	font-family: "ddc-hardware-regular";
+}
+.font-condensed {
+	font-family: "ddc-hardware-condensed";
+}
+
+.font-size\:-1 {
+	font-size: var( --size--1 );
+}
+.font-size\:1 {
+	font-size: var( --size-1 );
+}
+.font-size\:2 {
+	font-size: var( --size-2 );
+}
+.font-size\:3 {
+	font-size: var( --size-3 );
+}
+.font-size\:4 {
+	font-size: var( --size-4 );
+}
+
+.measure {
+	max-width: var( --measure );
+}
+
 .mono {
 	font-family: var( --font-mono );
 	font-size: calc( var( --size-0 ) * 0.875 );
 }
 
+.shadow {
+	box-shadow: 6px 6px 0 var( --shadow-color );
+}
+
 .stack > * + * {
 	margin-top: var( --stack-size );
+}
+
+.text-center {
+	text-align: center;
 }
 
 .visually-hidden {

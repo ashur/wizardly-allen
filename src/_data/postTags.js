@@ -2,54 +2,70 @@ const supabase = require( "../SupabaseClient" );
 
 module.exports = async () =>
 {
-	let {data: posts, error: supabaseError} = await supabase.selectPosts();
-
-	if( supabaseError )
+	try
 	{
-		throw new Error( supabaseError.message );
-	}
-	else
-	{
-		let tags = {};
+		let {data: posts, error: supabaseError} = await supabase.selectPosts();
 
-		posts.forEach( post =>
+		if( supabaseError )
 		{
-			let postTags = post.tags || [];
-			postTags.forEach( tag =>
-			{
-				if( tags[tag] )
-				{
-					tags[tag]++;
-				}
-				else
-				{
-					tags[tag] = 1;
-				}
-			});
-		});
+			throw new Error( supabaseError.message );
+		}
+		else
+		{
+			let tags = {};
 
-		let popularTags = Object.keys( tags )
-			.sort( (a,b) =>
+			posts.forEach( post =>
 			{
-				if( tags[b] - tags[a] === 0 )
+				let postTags = post.tags || [];
+				postTags.forEach( tag =>
 				{
-					if( a > b )
+					if( tags[tag] )
 					{
-						return 1;
+						tags[tag]++;
 					}
-					if( a < b )
+					else
 					{
-						return -1;
+						tags[tag] = 1;
 					}
-				}
-				else
-				{
-					return tags[b] - tags[a];
-				}
+				});
 			});
 
-		return {
-			tags: popularTags
-		};
+			let popularTags = Object.keys( tags )
+				.sort( (a,b) =>
+				{
+					if( tags[b] - tags[a] === 0 )
+					{
+						if( a > b )
+						{
+							return 1;
+						}
+						if( a < b )
+						{
+							return -1;
+						}
+					}
+					else
+					{
+						return tags[b] - tags[a];
+					}
+				});
+
+			return {
+				tags: popularTags
+			};
+		}
+	}
+	catch( error )
+	{
+		if( process.env.NODE_ENV === "production" )
+		{
+			console.error( error );
+		}
+		else
+		{
+			return {
+				tags: ["Apple", "Banana", "Carrot", "Daikon", "Eggplant", "Frisee", "Grapefruit",],
+			};
+		}
 	}
 };

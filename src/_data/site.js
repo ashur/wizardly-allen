@@ -1,5 +1,5 @@
 module.exports = {
-	title: "Invisible Link",
+	title: "The Invisible Link Company",
 	description: {
 		short: "An RSS-only linkblog",
 		long: "A linkblog available only via RSS"

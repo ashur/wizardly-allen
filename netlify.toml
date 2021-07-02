@@ -25,3 +25,9 @@
   from = "/feed/:hash"
   to = "/.netlify/functions/feeds/:hash"
   status = 200
+
+[[redirects]]
+  from = "/welcome/:hash"
+  to = "/welcome/?hash=:hash"
+  status = 200
+  force = true

@@ -1,10 +1,62 @@
 ---
 permalink: /index.html
-layout: layouts/base.njk
+layout: layouts/page.njk
+# externalScripts:
+#  - "https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.2/dist/alpine.min.js"
 ---
-<h1>{{ site.title }}</h1>
-<p>{{ site.description.long }}</p>
-<p>by {{ site.author.name }}</p>
+<div
+	x-data="app"
+	class="[ stack-lg ][][ animate animate-fade-in container ]"
+>
+	<div
+		class="[][ shadow ][ card-title ]"
+	>
+		<h1
+			class="[ stack ][ block-children font-size:1 ][]"
+			style="--stack-size: var( --size-0 )"
+		>
+			<span class="[][ font-regular ][]">The</span>
+			<span class="[][ color-cream font-condensed font-size:4 ][]">Invisible Link</span>
+			<span class="[][ font-regular ][]">Company</span>
+		</h1>
+	</div>
 
-<a href="/subscribe">Subscribe</a>
-<a href="/about-rss">What is RSS?</a>
+	<div
+		class="[][ shadow ][ card card-subtitle ]"
+	>
+		<p class="[][ color-green font-regular ][]">Yet another link blog</p>
+		<p
+			class="[ center ][ color-cream font-regular font-size:2 measure ][ card-subtitle-highlight ]"
+			style="--measure: 14ch;"
+		>Available only via RSS</p>
+		<p class="[][ color-green block-children font-regular ][]">
+			<span class="[][ font-condensed ][]">by</span>
+			<span class="[][ font-size:1 ][]">Ashur Cabrera</span>
+		</p>
+	</div>
+
+	<div
+		class="[][ shadow ][ card card-pull-quote ]"
+	>
+		<p class="[][ color-cream font-regular font-size:2 ][]">“Not a good idea”</p>
+	</div>
+
+	<div
+		class="[][ shadow ][ card card-stats ]"
+	>
+		<div class="[][ stack ][]">
+			<h2
+				class="[ stack ][ block-children ][]"
+				style="--stack-size: var( --size--4 )"
+			>
+				<span class="[][ font-regular ][]">Featuring</span>
+				<span class="[][ font-regular font-size:2 ][]">Mute-Em</span>
+				<span class="[][ font-regular ][]">Technology</span>
+			</h2>
+			<p class="[][ block-children font-size:0 ][]">
+				<span class="[][ font-regular font-size:1 ][]">Dial in the perfect feed</span>
+<!-- 				<span class="[][ font-regular ][]">No garbage</span> -->
+			</p>
+		</div>
+	</div>
+</div>

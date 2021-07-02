@@ -1,0 +1,116 @@
+.PageHeader {
+	border-bottom: solid 1px #ddd;
+	padding-bottom: var( --size--1 );
+}
+.PageHeader-site-title {
+	font-weight: bold;
+}
+
+.PageTitle {
+	font-size: var( --size-2 );
+	font-weight: bold;
+}
+
+.animate-fade-in > * {
+	--transition-fade: opacity 0.875s ease-in var( --transition-delay );
+
+	opacity: 0;
+	transition: var( --transition-fade );
+}
+.animate-fade-in.animate > * {
+	opacity: 1;
+}
+
+.card {
+	margin-left: var( --page-size );
+	margin-right: var( --page-size );
+	border-radius: var( --size--1 );
+	padding: var( --size-1 );
+	line-height: 1.1;
+}
+
+.card-title {
+	padding: var( --size-1 );
+	background-color: var( --color-purple );
+	color: var( --color-purple-light );
+	text-align: center;
+}
+.card-title h1 {
+	line-height: 0.8;
+}
+@media screen and (min-width: {{ metrics.containerSize }}) {
+	.card-title {
+		--shadow-color: var( --color-green );
+		margin-top: var( --page-size );
+		margin-right: var( --page-size );
+		margin-left: var( --page-size );
+		border-radius: var( --size--1 );
+	}
+}
+
+.card-subtitle {
+	--shadow-color: var( --color-purple );
+
+	padding: var( --size-3 );
+
+	background-image: radial-gradient(
+		circle at 50%,
+		var( --color-purple ),
+		var( --color-purple ) 80%,
+		var( --color-green ) 80%
+	);
+
+	text-align: center;
+}
+.card-subtitle > * + *:before {
+	content: "";
+	display: block;
+	width: var( --size-4 );
+	height: 4px;
+	margin: var( --size-1 ) auto;
+	background-color: var( --color-purple-light );
+}
+@media screen and (min-width: {{ metrics.containerSize }}) {
+	.card-subtitle-highlight {
+		font-size: var( --size-3 );
+	}
+}
+
+.card-pull-quote {
+	--shadow-color: var( --color-purple-light );
+
+	padding: var( --size-2 );
+	background-color: var( --color-purple );
+
+	text-align: center;
+}
+	.card-pull-quote > *:before,
+	.card-pull-quote > *:after
+	{
+		content: "";
+		display: block;
+		width: var( --size-6 );
+		height: 4px;
+		margin-left: auto;
+		margin-right: auto;
+		background-color: var( --color-green );
+	}
+	.card-pull-quote > *:before {
+		margin-bottom: var( --size-2 );
+	}
+	.card-pull-quote > *:after {
+		margin-top: var( --size-2 );
+	}
+
+.card-stats {
+	--shadow-color: var( --color-purple );
+
+	padding: var( --size-0 );
+	background-color: var( --color-purple-light );
+
+	text-align: center;
+}
+.card-stats > * {
+	border: solid var( --color-cream ) 6px;
+	padding: var( --size-2 );
+}

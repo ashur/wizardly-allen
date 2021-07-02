@@ -1,6 +1,5 @@
 ---
-title: Customize your feed
-description: Customize the content of your feed
+title: Site Title
 externalScripts:
   - "https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.2/dist/alpine.min.js"
 ---
@@ -20,21 +19,56 @@ externalScripts:
 		:class="status.type === 'error' ? 'error' : ( status.type === 'success' ? 'success' : '' )"
 	></p>
 
-	<p class="[][ measure ][]">Hello! This is your feed. (Don’t tell the others, but this is one of my favorites. You’re really making some great choices.)</p>
+	<div class="[ stack ][][ animate-fade-in ]">
+		<h1
+			class="[][][ PageTitle animate-fade-in animate-slide-in ]"
+			style="--transition-delay: 0.125s;"
+		>{{ title }}</h1>
 
-	{# {{ component( "FeedUrl" ) }} #}
+		<p
+			class="[][ measure ][ animate-fade-in ]"
+			style="--transition-delay: 1.25s;"
+		>In just a few moments, you'll have your very own feed jam-packed with links. But first, this is your personalized feed URL:</p>
 
-	<div class="[ stack ][][]">
-		<h2 class="[][ font-regular ][ font-size:1 ]">Customize your feed</h2>
-		<p class="[][ measure ][]">Customize the content of your feed here by selecting topics:</p>
-		{{ component( "TagList", { tags: postTags.tags } ) }}
+		{{ component( "FeedUrl" ) }}
 	</div>
 
+	{# <p>I hope you’ll enjoy every story, photo, article, and punchline you find here, but that’s probably not in the cards.</p>
+
 	<div class="[ stack ][][]">
-		<h2 class="[][ font-regular ][ font-size:1 ]">Advanced</h2>
+		<p class="[][ measure ][]">Instead, dial things in just the way you like them by adjusting which topics arrive in your feed:</p>
+		{{ component( "TagList", { tags: postTags.tags } ) }}
+	</div> #}
+
+	{# <div class="[ stack ][ measure ][]">
+		<h2 class="[][][ font-size:1 ]">Getting started</h2>
+		<p>If you're familiar with RSS feeds and feed readers, you know the drill. Otherwise, copy and paste this URL into your reader of choice.</p>
+		{{ component( "FeedUrl" ) }}
+	</div> #}
+
+	{# <div class="[ stack ][ measure ][]">
+		<h3 class="[][ bold ][]">Need a reader?</h3>
+		<p>If you don't have a favorite feed reader just yet, there are loads to choose from. Here are a few I enjoy:</p>
+		<ul>
+			<li>Feedbin</li>
+			<li>NetNewsWire</li>
+			<li>Stream</li>
+			<li>Unread</li>
+		</ul>
+		{{ component( "FeedUrl" ) }}
+	</div> #}
+
+	{# <div class="[ stack ][][]">
+		<h2 class="[][][ font-size:1 ]">Topics</h2>
+		<p class="[][ measure ][]">Each post is tagged by topic, like these that appear quite frequently. If you’d prefer not to see links about a certain subject, uncheck it and never look back.</p>
+		{{ component( "TagList", { tags: postTags.tags } ) }}
+	</div> #}
+
+	{# <div class="[ stack ][][]">
+		<h2 class="[][][ font-size:1 ]">Advanced</h2>
 		<p>If your RSS client is having trouble subscribing to <em>{{ site.title }}</em>, or if you just have a preference about your feed format, jiggle this handle to choose between traditional Atom or the fancy new JSON:</p>
 		{{ component( "FeedFormat" ) }}
-	</div>
+	</div> #}
 </div>
 
 <script>
@@ -104,6 +138,8 @@ externalScripts:
 			type: null,
 			timeout: null,
 		},
+
+
 
 		/* Methods */
 		async copyUrl()
@@ -206,6 +242,24 @@ externalScripts:
 			}
 		},
 	};
+
+	let animateElements = () =>
+	{
+		Array.from( document.querySelectorAll( ".animate-fade-in" ) )
+			.forEach( element =>
+			{
+				element.classList.add( "animate" );
+			});
+
+		Array.from( document.querySelectorAll( ".animate-slide-in" ) )
+			.forEach( element =>
+			{
+				element.classList.add( "animate" );
+			});
+	};
+
+	setTimeout( () => animateElements(), 50 );
+
 </script>
 
 <style>

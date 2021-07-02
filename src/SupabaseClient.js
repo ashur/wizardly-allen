@@ -67,9 +67,19 @@ module.exports.selectPost = async (postId) =>
  */
 module.exports.selectPosts = async () =>
 {
-	return await supabase
-		.from( "posts" )
-		.select();
+	try
+	{
+		return await supabase
+			.from( "posts" )
+			.select();
+	}
+	catch( error )
+	{
+		return {
+			data: null,
+			error: error,
+		}
+	}
 };
 
 /**

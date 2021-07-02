@@ -1,20 +1,27 @@
 {% macro render(options) %}
-<div class="[][][ TagList ]">
+<div
+	class="[][][ TagList ]"
+>
 	{% set popularTags = (options.tags.slice( 0, 5 ) | sort) %}
 	{% set moreTags = (options.tags.slice( 5 ) | sort) %}
 
-	<ul>
+	<ul
+		class="[][ --hidden ][ TagList-list ]"
+		:class="{ hidden: !model.hash && !showContents }"
+	>
 		{% for tag in popularTags %}
-		<li>
+		<li
+			style="--transition-delay: calc( 0.25s * {{ loop.index }} )"
+		>
 			<input
 					type="checkbox"
 					id="tag-{{ tag }}"
 					:checked="!model.hash || (model.ignored_tags && !model.ignored_tags.includes( '{{ tag | lower}}' ))"
-					:disabled="!model.hash"
+					{# :disabled="!model.hash" #}
 					@click="toggleTag( '{{ tag }}' )"
-	
+
 					checked
-					disabled
+					{# disabled #}
 				/>
 			<label for="tag-{{ tag }}">{{ tag }}</label>
 		</li>
@@ -22,7 +29,9 @@
 	</ul>
 
 	{% if moreTags %}
-	<details>
+	<details
+		class="[][ --hidden ][]"
+	>
 		<summary>More</summary>
 
 		<ul>
@@ -34,7 +43,7 @@
 						:checked="!model.hash || (model.ignored_tags && !model.ignored_tags.includes( '{{ tag | lower}}' ))"
 						:disabled="!model.hash"
 						@click="toggleTag( '{{ tag }}' )"
-		
+
 						checked
 						disabled
 					/>
@@ -54,12 +63,33 @@
 
 {% set criticalCss %}
 <style>
-.TagList {
-	
+.TagList-list > * {
+	transition: all 2s ease var( --transition-delay, 0s );
+}
+.hidden > * {
+	opacity: 0;
 }
 .TagList ul {
 	list-style-type: none;
 	padding-left: 0;
 }
+
+.TagList summary {
+	z-index: 1;
+	position: relative;
+	width: 100%;
+	text-align: center;
+	font-size: var( --size--1 );
+}
+	.TagList summary::after {
+		z-index: -1;
+		position: absolute;
+		left: 0; bottom: 50%;
+		content: "";
+		width: 100%;
+		height: 2px;
+		background: #eee;
+	}
+
 </style>
 {% endset %}
