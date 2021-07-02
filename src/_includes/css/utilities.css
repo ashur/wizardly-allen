@@ -44,6 +44,10 @@
 	font-size: calc( var( --size-0 ) * 0.875 );
 }
 
+.no-underline {
+	text-decoration: none;
+}
+
 .shadow {
 	box-shadow: 6px 6px 0 var( --shadow-color );
 }

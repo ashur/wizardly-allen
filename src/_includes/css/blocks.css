@@ -35,18 +35,18 @@
 	color: var( --color-purple-light );
 	text-align: center;
 }
-.card-title h1 {
-	line-height: 0.8;
-}
-@media screen and (min-width: {{ metrics.containerSize }}) {
-	.card-title {
-		--shadow-color: var( --color-green );
-		margin-top: var( --page-size );
-		margin-right: var( --page-size );
-		margin-left: var( --page-size );
-		border-radius: var( --size--1 );
+	.card-title h1 {
+		line-height: 0.8;
 	}
-}
+	@media screen and (min-width: {{ metrics.containerSize }}) {
+		.card-title {
+			--shadow-color: var( --color-green );
+			margin-top: var( --page-size );
+			margin-right: var( --page-size );
+			margin-left: var( --page-size );
+			border-radius: var( --size--1 );
+		}
+	}
 
 .card-subtitle {
 	--shadow-color: var( --color-purple );
@@ -62,19 +62,45 @@
 
 	text-align: center;
 }
-.card-subtitle > * + *:before {
-	content: "";
-	display: block;
-	width: var( --size-4 );
-	height: 4px;
-	margin: var( --size-1 ) auto;
-	background-color: var( --color-purple-light );
-}
-@media screen and (min-width: {{ metrics.containerSize }}) {
-	.card-subtitle-highlight {
-		font-size: var( --size-3 );
+	.card-subtitle a {
+		position: relative;
+		transition: color 0.25s ease;
 	}
-}
+	.card-subtitle a:hover {
+		color: var( --color-cream );
+	}
+	.card-subtitle a:after {
+		display: block;
+		content: "";
+		bottom: -3px;
+		left: 0;
+		right: 100%;
+		position: absolute;
+		height: 1px;
+		background-color: var( --color-purple-light );
+	}
+	.card-subtitle a:hover:after {
+		right: 0;
+	}
+	@media (prefers-reduced-motion: no-preference) {
+		.card-subtitle a:after {
+			transition: all 0.875s ease;
+		}
+	}
+
+	.card-subtitle > * + *:before {
+		content: "";
+		display: block;
+		width: var( --size-4 );
+		height: 4px;
+		margin: var( --size-1 ) auto;
+		background-color: var( --color-purple-light );
+	}
+	@media screen and (min-width: {{ metrics.containerSize }}) {
+		.card-subtitle-highlight {
+			font-size: var( --size-3 );
+		}
+	}
 
 .card-pull-quote {
 	--shadow-color: var( --color-purple-light );
@@ -110,7 +136,7 @@
 
 	text-align: center;
 }
-.card-stats > * {
-	border: solid var( --color-cream ) 6px;
-	padding: var( --size-2 );
-}
+	.card-stats > * {
+		border: solid var( --color-cream ) 6px;
+		padding: var( --size-2 );
+	}
