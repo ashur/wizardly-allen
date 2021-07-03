@@ -13,10 +13,11 @@ layout: layouts/page.njk
 	>
 		<h1
 			class="[ stack ][ block-children font-size:1 ][]"
-			style="--stack-size: var( --size-0 )"
+			style="--stack-size: var( --size--1 )"
+			aria-label="{{ site.title }}"
 		>
 			<span class="[][ font-regular ][]">The</span>
-			<span class="[][ color-cream font-condensed font-size:4 ][]">Invisible Link</span>
+			<span class="[][ color-cream font-condensed font-size:3 ][ site-title ]">Invisible Link</span>
 			<span class="[][ font-regular ][]">Company</span>
 		</h1>
 	</div>
@@ -24,11 +25,12 @@ layout: layouts/page.njk
 	<div
 		class="[][ shadow ][ card card-subtitle ]"
 	>
-		<p class="[][ color-green font-regular ][]">Yet another link blog</p>
+		<p class="[][ color-green font-regular ][]">Just what we need</p>
 		<p
 			class="[ center ][ color-cream font-regular font-size:2 measure ][ card-subtitle-highlight ]"
-			style="--measure: 14ch;"
-		>Available only via RSS</p>
+			style="--measure: 16ch;"
+		>Another damn link&nbsp;blog</p>
+
 		<p class="[][ color-green block-children font-regular ][]">
 			<span class="[][ font-condensed ][]">by</span>
 			<span class="[][ font-size:1 ][]"><a class="[][ no-underline ][]" href="https://ashur.cab/rera">Ashur Cabrera</a></span>
@@ -44,20 +46,26 @@ layout: layouts/page.njk
 	<div
 		class="[][ shadow ][ card card-stats ]"
 	>
-		<div class="[][ stack ][]">
+		<div class="[][ stack-lg ][]">
 			<h2
-				class="[ stack ][ block-children ][]"
+				class="[ stack ][ block-children font-regular ][ card-stats-heading ]"
 				style="--stack-size: var( --size--4 )"
 			>
-				<span class="[][ font-regular ][]">Featuring</span>
-				<span class="[][ font-regular font-size:2 ][]">Mute-Em</span>
-				<span class="[][ font-regular ][]">Technology</span>
+				<span class="[][][]">Featuring</span>
+				<span class="[][ font-size:2 ][ mute-em ]">Mute-Em&trade;</span>
+				<span class="[][][]">Technology</span>
 			</h2>
 
-			<div class="[][][]">
-				<div class="[][][]">
+			<div class="[ center ][][ stats ]">
+				<p class="[][ block-children ][ stat ]">
+					<span class="[][ font-regular font-size:5 ][ stat-number stat-posts ]">{{ posts.posts.length }}</span>
+					<span class="[][ font-condensed font-size:1 ][]">Hyperlinks</span>
+				</p>
 
-				</div>
+				<p class="[][ block-children ][ stat ]">
+					<span class="[][ font-regular font-size:5 ][ stat-number stat-topics ]">{{ postTags.tags.length }}</span>
+					<span class="[][ font-condensed font-size:1 ][]">Topics</span>
+				</p>
 			</div>
 
 			<p class="[][ block-children font-size:0 ][]">

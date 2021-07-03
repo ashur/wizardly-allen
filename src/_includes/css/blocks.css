@@ -35,7 +35,7 @@
 	color: var( --color-purple-light );
 	text-align: center;
 }
-	.card-title h1 {
+	.site-title {
 		line-height: 0.8;
 	}
 	@media screen and (min-width: {{ metrics.containerSize }}) {
@@ -45,6 +45,10 @@
 			margin-right: var( --page-size );
 			margin-left: var( --page-size );
 			border-radius: var( --size--1 );
+		}
+
+		.site-title {
+			font-size: var( --size-4 );
 		}
 	}
 
@@ -127,6 +131,11 @@
 	.card-pull-quote > *:after {
 		margin-top: var( --size-2 );
 	}
+	@media screen and (min-width: {{ metrics.containerSize }}) {
+		.mute-em {
+			font-size: var( --size-3 );
+		}
+	}
 
 .card-stats {
 	--shadow-color: var( --color-purple );
@@ -139,4 +148,32 @@
 	.card-stats > * {
 		border: solid var( --color-cream ) 6px;
 		padding: var( --size-2 );
+	}
+
+	.stats {
+		--divider-gap: 4px;
+		max-width: 16rem;
+		display: grid;
+		background: var( --color-cream );
+		grid-template-rows: 1fr 1fr;
+		row-gap: var( --divider-gap );
+	}
+	.stat {
+		background: var( --color-purple-light );
+		padding-bottom: var( --size-0 );
+	}
+		.stat-number {
+			line-height: 1;
+		}
+
+	@media screen and (min-width: {{ metrics.containerSize }}) {
+		.card-stats-heading {
+			font-size: var( --size-1 );
+		}
+		.stats {
+			max-width: none;
+			grid-template-columns: 1fr 1fr;
+			grid-template-rows: auto;
+			column-gap: var( --divider-gap );
+		}
 	}
