@@ -1,3 +1,3 @@
 module.exports = {
-	containerSize: "40rem",
+	containerSize: "44rem",
 };

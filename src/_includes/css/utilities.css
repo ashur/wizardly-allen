@@ -11,6 +11,9 @@
 .color-purple {
 	color: var( --color-purple );
 }
+.color-purple-light {
+	color: var( --color-purple-light );
+}
 
 .font-regular {
 	font-family: "ddc-hardware-regular";
@@ -55,8 +58,27 @@
 	box-shadow: 6px 6px 0 var( --shadow-color );
 }
 
-.stack > * + * {
-	margin-top: var( --stack-size );
+@media screen and (min-width: {{ metrics.containerSize }}) {
+	.super-size-me.font-size\:-1,
+	.super-size-me .font-size\:-1 {
+		font-size: var( --size-0 );
+	}
+	.super-size-me.font-size\:0,
+	.super-size-me .font-size\:0 {
+		font-size: var( --size-1 );
+	}
+	.super-size-me.font-size\:1,
+	.super-size-me .font-size\:1 {
+		font-size: var( --size-2 );
+	}
+	.super-size-me.font-size\:2,
+	.super-size-me .font-size\:2 {
+		font-size: var( --size-3 );
+	}
+	.super-size-me.font-size\:3,
+	.super-size-me .font-size\:3 {
+		font-size: var( --size-4 );
+	}
 }
 
 .text-center {

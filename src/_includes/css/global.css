@@ -29,6 +29,7 @@
 	--container-max-width: var( --size-5 );
 	--measure: 60ch;
 	--page-size: var( --size-1 );
+	--stack-sm-size: var( --size--2 );
 	--stack-size: var( --size-0 );
 	--stack-lg-size: var( --fluid-2 );
 	--stack-xl-size: var( --fluid-5 );

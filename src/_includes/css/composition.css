@@ -11,6 +11,10 @@
 	max-width: {{ metrics.containerSize }};
 }
 
+.stack-sm > * + * {
+	margin-top: var( --stack-sm-size );
+}
+
 .stack > * + * {
 	margin-top: var( --stack-size );
 }
