@@ -60,60 +60,82 @@
 		radial-gradient(
 			circle at 50%,
 			var( --color-purple ),
-			var( --color-purple ) 85%,
-			var( --color-cream ) 85%,
-			var( --color-cream ) 90%,
-			var( --color-green ) 90%
+			var( --color-purple ) 75%,
+			var( --color-cream ) 75%,
+			var( --color-cream ) 80%,
+			var( --color-green ) 80%
 		)
 	;
 	--shadow-color: var( --color-purple );
 
-	padding: var( --size-2 ) var( --size-1 );
+	padding: var( --size-3 ) var( --size-2 );
 }
-	.card-subtitle a {
-		position: relative;
-		transition: color 0.25s ease;
-	}
-	.card-subtitle a:hover {
-		color: var( --color-cream );
-	}
-	.card-subtitle a:after {
-		display: block;
-		content: "";
-		bottom: -3px;
-		left: 0;
-		right: 100%;
-		position: absolute;
-		height: 1px;
-		background-color: var( --color-purple-light );
-	}
-	.card-subtitle a:hover:after {
-		right: 0;
-	}
-	@media (prefers-reduced-motion: no-preference) {
-		.card-subtitle a:after {
-			transition: all 0.875s ease;
-		}
-	}
 	.card-subtitle .icon {
 		--icon-color: var( --color-purple-light );
-		height: var( --size-2 );
+		height: var( --size-1 );
 	}
-	@media screen and (min-width: {{ metrics.containerSize }}) {
-		.card-subtitle .icon {
-			height: var( --size-3 );
+
+.features {
+	--gap-size: var( --size-1 );
+	display: grid;
+	row-gap: var( --gap-size );
+	column-gap: var( --gap-size );
+	padding-left: var( --size-1 );
+	padding-right: var( --size-1 );
+}
+	.features .card {
+		margin-left: 0;
+		margin-right: 0;
+	}
+	@media (min-width: {{ metrics.twoUpSize }}) {
+		.features {
+			grid-template-columns: 1fr 1fr;
+		}
+		.features .span-2 {
+			grid-column: span 2;
 		}
 	}
 
-
 .card-testimonial {
+	--card-accent: var( --color-purple-light );
 	--card-background: var( --color-purple );
-	--shadow-color: var( --color-purple-light );
+	--card-text: var( --color-cream );
+	--shadow-color: var( --color-green );
 
-	padding: var( --size--1 );
-	color: var( --color-cream );
+	padding: var( --size-0 );
+	color: var( --card-text );
 }
-	.card-testimonial > *:before,
+	.card-testimonial > * {
+		border: solid var( --card-accent ) var( --size--4 );
+		padding: var( --size-1 ) var( --size-2 );
+		height: 100%;
+	}
+	.card-testimonial {
+		position: relative;
+	}
+	/* .card-testimonial:before {
+		--size: var( --size-2 );
+
+		position: absolute;
+		top: calc( var( --size-2 ) - var( --size ) / 2  + var( --size--4 ) / 2 ); left: calc( 50% - var( --size ) / 2 );
+		display: block;
+		content: "";
+		width: var( --size );
+		height: var( --size );
+		border-radius: var( --size );
+		/* border: solid var( --card-accent ) var( --size--4 ); */
+		background-color: var( --card-accent );
+		color: var( --card-text );
+	} */
+	@media screen and (min-width: {{ metrics.twoUpSize }}) {
+		.two-up .card-testimonial:nth-child(1) {
+			margin-right: 0;
+		}
+		.two-up .card-testimonial:nth-child(2) {
+			margin-left: 0;
+		}
+	}
+	/* .card-testimonial > *:before,
 	.card-testimonial > *:after
 	{
 		content: "";
@@ -122,7 +144,7 @@
 		height: var( --size--3 );
 		margin-left: auto;
 		margin-right: auto;
-		background-color: var( --color-green );
+		background-color: var( --card-accent );
 	}
 	.card-testimonial > *:before,
 	.card-testimonial > *:after {
@@ -130,30 +152,42 @@
 		margin-top: var( --size-0 );
 	}
 	.card-testimonial > *:before {
-		margin-bottom: var( --size-2 );
+		margin-bottom: var( --size-1 );
 	}
 	.card-testimonial > *:after {
-		margin-top: var( --size-2 );
-	}
-	@media screen and (min-width: {{ metrics.containerSize }}) {
+		margin-top: var( --size-1 );
+	} */
+	/* @media screen and (min-width: {{ metrics.containerSize }}) {
 		.mute-em {
 			font-size: var( --size-3 );
 		}
-	}
+	} */
 
 .card-feature {
-	/* border: solid var( --size--3 ) var( --color-purple-light ); */
-	background-color: var( --color-cream );
+	--card-accent: var( --color-green );
+	--card-background: var( --color-purple );
+	--card-text: var( --color-cream );
+	--shadow-color: var( --color-purple-light );
+
+	--bg-line-color: var( --color-purple-light );
+	--bg-line-height: var( --size--3 );
+	--bg-line-mask-color: var( --card-background );
+	--bg-line-mask-size: var( --size--1 );
+
+	--shadow-color: var( --color-green );
+
+	border: solid var( --size--3 ) var( --color-purple );
+	background-color: var( --card-background );
+	color: var( --card-text );
+	padding: var( --size-1 );
 }
 
 .card-mute-em {
-	display: none;
 	--shadow-color: var( --color-purple-light );
 
 	border: solid var( --size--2 ) var( --color-purple );
 	padding: 0;
 	background-color: var( --color-cream );
-	color: var( --color-purple );
 
 	text-align: center;
 }
@@ -174,23 +208,23 @@
 	}
 	.card-mute-em-demo > * {
 		max-width: 40ch;
-		margin-right: auto;
-		margin-left: auto;
 	}
 
 	.mute-em {
 		display: inline-block;
+		box-shadow: 0px 0px 0 var( --size--2 ) var( --color-purple );
 		border-radius: var( --size--3 );
+		background: var( --card-text );
 		padding: var( --size--3 ) var( --size--1 );
 		padding-bottom: calc( var( --size--3 ) + 0.075em );
-
-		box-shadow: 0px 0px 0 var( --size--3 ) var( --color-purple );
+		color: var( --card-background );
 	}
 
 	.mute-em-example {
 		--shadow-color: var( --color-purple );
 		background-color: white;
 		border: solid var( --color-purple-light ) var( --size--2 );
+		border-radius: var( --size--2 );
 	}
 
 	.mute-em-example-row {

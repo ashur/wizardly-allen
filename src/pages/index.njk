@@ -22,105 +22,128 @@ layout: layouts/page.njk
 		</h1>
 	</div>
 
+	{# <p
+		class="[][ --bg-line font-regular font-size:0 super-size-me text-center ][]"
+		style="--bg-line-indent: 20%;"
+	>
+		<span class="[][][ bg-line-content ]">by <a class="[][ no-underline ][]" href="https://ashur.cab/rera">Ashur Cabrera</a></span>
+	</p> #}
+
 	<div
-		class="[ stack-lg ][ shadow ][ card card-subtitle color-cream font-regular ]"
+		class="[ stack-xl ][ shadow ][ card card-subtitle color-cream font-regular ]"
 	>
 		<p
-			class="[ center stack-sm ][ block-children measure super-size-me ][]"
+			class="[ center stack-sm ][ block-children font-size:0 measure super-size-me ][]"
 		>
-			<span class="[][ color-green font-size:0 ][]">Yet another</span>
-			<span class="[ center ][ font-size:2 measure ][]" style="--measure: 16ch;">link&nbsp;blog</span>
-			{# <span class="[][ font-condensed ][]">available only</span> #}
-			<span class="[][ color-green font-size:0 ][]">with a twist&hellip;</span>
+			<span class="[][][]">A</span>
+			<span class="[][ font-size:2 ][]">link blog</span>
+			<span class="[][ color-green ][]">with a twist&hellip;</span>
 		</p>
 
-		{% include "svg/rss.svg" %}
-
-		<p class="[ stack-sm ][ block-children font-size:1 measure font-condensed super-size-me ][]">
-			Available only via&nbsp;RSS
+		<p class="[ stack-sm ][ block-children font-size:1 font-condensed super-size-me ][]">
+			<span>It’s only available</span>
+			<span>{% include "svg/rss.svg" %}</span>
+			<span>via&nbsp;RSS</span>
 		</p>
 	</div>
 
-	<div
-		class="[][ shadow ][ card card-testimonial ]"
-	>
-		<p class="[][ font-regular font-size:1 text-center super-size-me ][]">“Not a good idea”</p>
-	</div>
-
-	<div
-		class="[][][ card card-feature ]"
-	>
-		<h2 class="[ stack ][ block-children font-regular font-size:0 super-size-me ][]">
-			<span>Featuring</span>
-			<span class="[][ font-size:2 ][ mute-em ]">Mute ‘Em</span>
-			<span>Technology</span>
+	<section class="[ stack ][ text-center ][]">
+		<h2
+			class="[][ bg-line font-regular font-size:1 ][]"
+			style="--bg-line-mask-color: var( --color-cream ); --bg-line-indent: var( --size-4 );"
+		>
+			<span class="[][ bg-line-content ][]">“A terrible idea”</span>
 		</h2>
-	</div>
+	</section>
 
-	<div
-		class="[][ shadow ][ card card-mute-em ]"
-	>
-		<h2 class="[ stack ][ block-children color-purple-light font-regular super-size-me ][ card-mute-em-heading ]">
-			<span class="[][ font-size:0 ][]">Featuring</span>
-			<span class="[][ color-cream font-size:2 ][ mute-em ]">Mute-Em</span>
-			<span class="[][ font-size:0 ][]">Technology</span>
+	<section class="[ stack-lg ][ text-center ][]">
+		<h2
+			class="[][ bg-line font-regular font-size:1 ][]"
+			style="--bg-line-mask-color: var( --color-cream ); --bg-line-indent: var( --size-4 );"
+		>
+			<span class="[][ bg-line-content ][]">Featuring</span>
 		</h2>
 
-		<div class="[ stack-lg ][][ card-mute-em-demo ]">
-			<div class="[ stack ][][]">
-
-				<div class="[ stack ][ super-size-me ][]">
-					<div class="[][ shadow ][ mute-em-example ]">
-						<div class="[][][ mute-em-example-row ]">
-							<p class="[][][]">kottke.org</p>
-							<p class="[][ font-condensed ][ mute-em-example-count ]">
-								<span>31</span>
-							</p>
-						</div>
-						<div class="[][][ mute-em-example-row ]">
-							<p class="[][][]">{{ site.title }}</p>
-							<p class="[][ font-condensed ][ mute-em-example-count ]">
-								<span>{{ posts.posts.length }}</span>
-							</p>
-						</div>
-						<div class="[][][ mute-em-example-row ]">
-							<p class="[][][]">Moss and Fog</p>
-							<p class="[][ font-condensed ][ mute-em-example-count ]">
-								<span>19</span>
-							</p>
-						</div>
-					</div>
-				</div>
+		<div class="[][][ features ]">
+			<div
+				class="[][ shadow ][ card card-testimonial ]"
+			>
+				<p class="[ stack-sm ][ block-children ][]">
+					<span class="[][ font-regular font-size:3 super-size-me ][]">12</span>
+					<span class="[][ color-green font-regular font-size:1 ][]">hyperlinks</span>
+				</p>
 			</div>
 
-			<div class="[ stack ][][]">
-				{# <p class="[][ block-children font-regular super-size-me font-size:0 ][]">&hellip;to customize your feed</p> #}
-
-				<div class="[ stack ][ super-size-me ][]">
-					<div class="[][ shadow ][ mute-em-example ]">
-						<div class="[][][ mute-em-example-row ]">
-							<p class="[][][]">kottke.org</p>
-							<p class="[][ font-condensed ][ mute-em-example-count ]">
-								<span>31</span>
-							</p>
-						</div>
-						<div class="[][][ mute-em-example-row ]">
-							<p class="[][][]">{{ site.title }}</p>
-							<p class="[][ font-condensed ][ mute-em-example-count ]">
-								<span>{{ posts.posts.length }}</span>
-							</p>
-						</div>
-						<div class="[][][ mute-em-example-row ]">
-							<p class="[][][]">Moss and Fog</p>
-							<p class="[][ font-condensed ][ mute-em-example-count ]">
-								<span>19</span>
-							</p>
-						</div>
-					</div>
-				</div>
+			<div
+				class="[][ shadow ][ card card-testimonial ]"
+				style="--card-accent: var( --color-green ); --shadow-color: var( --color-purple-light );"
+			>
+				<p class="[ stack-sm ][ block-children ][]">
+					<span class="[][ font-regular font-size:3 super-size-me ][]">6</span>
+					<span class="[][ color-purple-light font-regular font-size:1 ][]">topics</span>
+				</p>
 			</div>
+
+			<div
+				class="[][ shadow span-2 ][ card card-testimonial ]"
+				style="--card-accent: var( --color-cream );"
+			>
+				<p class="[ stack-sm ][ block-children font-regular font-size:0 super-size-me ][]">
+					<span class="[][][ color-purple-light ]">Dozens of new</span>
+					<span class="[][ font-size:2 ][]">blogs & feeds</span>
+					<span class="[][ color-purple-light ][]">to fall in love with</span>
+				</p>
+			</div>
+
 		</div>
+	</section>
 
-		<p class="[][ block-children font-regular font-size:-1 ][ card-mute-em-footer ]">(Trademark not intended)</p>
+	<div class="[ stack ][ text-center ][]">
+		<p
+			class="[][ bg-line font-regular font-size:1 ][]"
+			style="--bg-line-mask-color: var( --color-cream ); --bg-line-indent: var( --size-4 );"
+		>
+			<span class="[][ bg-line-content ][]">But wait, there’s more!</span>
+		</p>
+	</div>
+
+	<div class="[ stack ][][]">
+		{# <p
+			class="[][ bg-line font-condensed font-size:0 super-size-me text-center ][]"
+			style="--bg-line-indent: var( --page-size );"
+		>
+			<span class="[][][ bg-line-content ]">But wait, there’s more!</span>
+		</p> #}
+
+		<div class="[][][ text-center ]">
+			{# <p class="[ stack ][ block-children font-regular ][]">
+				<span class="[][ block-children ][]">
+					<span
+						class="[][ font-size:2 super-size-me ][]"
+						style="line-height: 1"
+					>Every feed is unique</span>
+					<span
+						class="[][ font-size:0 super-size-me ][]"
+					>with the power of</span>
+				</span>
+
+				<span class="[][ font-regular font-size:2 ][ mute-em ]">Mute ‘Em</span>
+
+				<span class="[][ font-regular font-size:1 ][]">technology</span>
+			</p> #}
+
+			{# <div
+				class="[][ shadow ][ card card-feature ]"
+			>
+				<h2 class="[ stack ][ block-children font-regular font-size:0 super-size-me ][]">
+					<span class="[][ bg-line ][]">
+						<span class="[][][ bg-line-content font-condensed ]">Customize your feed with</span>
+					</span>
+					<span class="[][ bg-line ][]">
+						<span class="[][][ bg-line-content font-condensed ]">Technology</span>
+					</span>
+				</h2>
+			</div> #}
+		</div>
 	</div>
 </div>

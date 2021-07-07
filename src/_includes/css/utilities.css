@@ -1,3 +1,24 @@
+.bg-line {
+	position: relative;
+}
+.bg-line:before {
+	z-index: 1;
+	content: "";
+	position: absolute;
+	top: calc( 50% - (var( --bg-line-height, 4px ) / 2) );
+	left: var( --bg-line-indent, 0 );
+	right: var( --bg-line-indent, 0 );
+	height: var( --bg-line-height, 4px );
+	background-color: var( --bg-line-color, var( --color-purple ) );
+}
+.bg-line-content {
+	position: relative;
+	z-index: 10;
+	background-color: var( --bg-line-mask-color, var( --color-cream ) );
+	padding-left: var( --bg-line-mask-size, var( --size--2 ) );
+	padding-right: var( --bg-line-mask-size, var( --size--2 ) );
+}
+
 .block-children > * {
 	display: block;
 }
@@ -84,6 +105,17 @@
 .text-center {
 	text-align: center;
 }
+
+.two-up {
+	display: grid;
+	row-gap: calc( var( --gap-size, var( --stack-lg-size ) ) );
+	column-gap: calc( var( --gap-size, var( --stack-lg-size ) ) );
+}
+	@media screen and (min-width: {{ metrics.twoUpSize }}) {
+		.two-up {
+			grid-template-columns: 1fr 1fr;
+		}
+	}
 
 .visually-hidden {
 	border: 0;
