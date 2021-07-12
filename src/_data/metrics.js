@@ -1,4 +1,4 @@
 module.exports = {
-	containerSize: "44rem",
+	containerSize: "36rem",
 	twoUpSize: "34rem",
 };

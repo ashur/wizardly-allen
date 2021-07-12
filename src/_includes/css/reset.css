@@ -34,7 +34,7 @@ dl,
 dd,
 li {
   font-weight: normal;
-  font-size: var( --size-0 );
+  font-size: inherit;
 }
 
 /* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
@@ -50,7 +50,6 @@ html:focus-within {
 
 /* Set core body defaults */
 body {
-  min-height: 100vh;
   text-rendering: optimizeSpeed;
   line-height: 1.5;
 }
@@ -73,6 +72,10 @@ button,
 textarea,
 select {
   font: inherit;
+}
+
+em {
+  font-style: normal;
 }
 
 /* Remove all animations and transitions for people that prefer not to see them */

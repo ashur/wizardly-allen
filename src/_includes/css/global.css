@@ -1,8 +1,15 @@
 :root {
 	--color-cream: #fffbf6;
-	--color-green: #adffb6;
+	--color-green: #adffe6;
 	--color-purple: #261c4d;
 	--color-purple-light: #cec2ff;
+
+	--color-purple-100: #261c4d;
+	--color-purple-200: #3f2e80;
+	--color-purple-300: #6449cc;
+	--color-purple-400: #cec2ff;
+
+	--color-black-light: var( --color-purple-200 );
 
 	--ratio: 1.5;
 	--size--4: calc( var( --size--3 ) / var( --ratio ) );
@@ -31,28 +38,27 @@
 	--page-size: var( --size-1 );
 	--stack-sm-size: var( --size--2 );
 	--stack-size: var( --size-0 );
-	--stack-lg-size: var( --fluid-3 );
-	--stack-xl-size: var( --fluid-5 );
+	--stack-lg-size: var( --fluid-2 );
+	--stack-xl-size: var( --fluid-4 );
+
+	--blacklight-size: 7.5rem;
+	--blacklight-x: 500px;
+	--blacklight-y: 10px;
 }
+
+	@media (min-width: {{ metrics.containerSize }}) {
+		:root {
+			--page-size: var( --fluid-2 );
+		}
+	}
 
 body {
 	width: 100%;
-	padding-bottom: var( --stack-lg-size );
-	background-color: var( --color-cream );
 	color: var( --color-purple );
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-	line-height: var( --ratio );
-}
+	line-height: 1;
 
-h1,
-h2,
-h3 {
-	line-height: 1.1;
-}
-
-.main h2 {
-	font-size: var( --fluid-2, var( --size-2 ) );
-	font-weight: bold;
+	transition: background-color 0.33s ease;
 }
 
 a {
@@ -61,4 +67,8 @@ a {
 
 code {
 	font-family: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono", "Roboto Mono", "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro", "Fira Mono", "Droid Sans Mono", "Courier New", monospace;
+}
+
+p {
+	line-height: 1.25;
 }

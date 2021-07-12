@@ -1,0 +1,23 @@
+.SiteAuthor {
+	color: var( --color-purple-200 );
+	font-family: "ddc-hardware-regular";
+	font-size: var( --size-0 );
+}
+	.SiteAuthor em {
+		font-size: var( --size-1 );
+		color: var( --color-purple-100 );
+	}
+
+.lights-off .SiteAuthor {
+	border-color: var( --color-black-light );
+	color: var( --color-black-light );
+}
+
+.lights-off .SiteAuthor em {
+	color: var( --color-black-light );
+}
+
+.Invisible .SiteAuthor,
+.Invisible .SiteAuthor em {
+	color: var( --color-purple-300 );
+}

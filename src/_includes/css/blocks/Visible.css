@@ -1,0 +1,9 @@
+.Visible {
+	min-height: 100vh;
+}
+
+@media (min-width: {{ metrics.containerSize }}) {
+	.Visible {
+		align-content: center;
+	}
+}

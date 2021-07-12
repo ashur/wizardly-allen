@@ -1,0 +1,171 @@
+---
+layout: layouts/page.njk
+# externalScripts:
+#  - "https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.2/dist/alpine.min.js"
+---
+<article
+	class="[ stack-lg ][][ container ]"
+>
+	<section class="[ stack ][][]">
+		<div
+			class="[][][ card-title ]"
+		>
+			<h1
+				class="[ stack ][ block-children color-purple-light font-regular font-size:1 ][]"
+				style="--stack-size: var( --size--1 )"
+				aria-label="{{ site.title }}"
+			>
+				<span class="[][][]">The</span>
+				<span class="[][ color-cream font-condensed font-size:3 ][ site-title ]">Invisible Link</span>
+				<span class="[][][]">Company</span>
+			</h1>
+		</div>
+
+		<div
+			class="[][][ card-subtitle-background ]"
+		>
+			<div
+				class="[ stack-xl ][][ card card-subtitle font-regular ]"
+	
+				onmouseover="followMouse = true;"
+				onmouseout="followMouse = false;"
+				onmousemove="followCursor( event, this )"
+				onclick="moveToClick( event )"
+			>
+				<div class="[ stack-lg ][][]">
+					<p
+						class="[ center ][ block-children font-size:0 measure super-size-me ][]"
+					>
+						<span class="[][][]">A</span>
+						<span class="[][ font-size:2 ][]">link blog</span>
+						<span class="[][][]">with a twist&hellip;</span>
+					</p>
+		
+					<div class="[][][]">{% include "svg/rss.svg" %}</div>
+				</div>
+	
+				<p class="[][ block-children font-size:1 font-condensed super-size-me ][]">
+					<span>It’s only available</span>
+					<span>via&nbsp;RSS</span>
+				</p>
+	
+				<div class="[ stack-sm ][][ footer ]">
+					<p
+						class="[][ block-children font-regular text-center ][]"
+						style="color: var( --ink-color )"
+					>
+						<span class="[][ color-purple ][]">“A really bad idea”</span>
+						<span class="[][ font-size:0 ][]">by</span>
+						<span class="[][ font-size:1 ][]">Ashur Cabrera</span>
+					</p>
+				</div>
+			</div>
+		</div>
+	</section>
+</article>
+
+<script>
+	let element = document.querySelector( ".card-subtitle" );
+	let followMouse = false;
+	let state = {
+		x: 0.5, y: 0.16
+	};
+
+	/**
+	 * @param {number} x - ex., 0.5
+	 * @param {number} y - ex., 0.1
+	 */
+	function moveBackgroundTo( x, y )
+	{
+		element.style.setProperty( "--card-background-x", `${x * 100}%` );
+		element.style.setProperty( "--card-background-y", `${y * 100}%` );
+
+		state.x = x;
+		state.y = y;
+	}
+
+	function smoothMove( targetX, targetY, duration=300 )
+	{
+		let t = 0;
+		let d = duration;
+
+		let bX = state.x;
+		let cX = targetX - bX;
+
+		let bY = state.y;
+		let cY = targetY - bY;
+
+		let interval = setInterval( () =>
+		{
+			let x = easeInOutSine( t, bX, cX, d );
+			let y = easeInOutSine( t, bY, cY, d );
+
+			moveBackgroundTo( x, y );
+
+			t++;
+
+			if( t >= d )
+			{
+				clearInterval( interval );
+			}
+
+		}, 10 );
+	}
+
+	let i = 2500;
+	let d = 100;
+	let dy = 0.125;
+	let timeout = setTimeout( () =>
+	{
+		setTimeout( () => smoothMove( state.x + 0, state.y + dy, d ), i )
+		setTimeout( () => smoothMove( state.x - 0, state.y - dy, d ), i + d * 10 + 125 );
+	}, i );
+
+	function followCursor( event )
+	{
+		if( !followMouse )
+		{
+			return;
+		}
+
+		if( timeout )
+		{
+			clearTimeout( timeout );
+		}
+
+		let dimensions = element.getBoundingClientRect();
+		let x = (event.layerX / dimensions.width);
+		let y = (event.layerY / dimensions.height);
+
+		if( Math.abs( x - state.x ) >= 0.2 || Math.abs( y - state.y ) >= 0.2 )
+		{
+			smoothMove( x, y, 5 );
+		}
+		else
+		{
+			moveBackgroundTo( x, y );
+		}
+	}
+
+	function easeLinear (t, b, c, d) {
+		return c * t / d + b;
+	}
+	
+	function easeInOutSine (t, b, c, d) {
+		return -c / 2 * (Math.cos(Math.PI * t / d) - 1) + b;
+	}
+
+	function easeInOutBack (t, b, c, d) {
+		let s = 1.70158;
+		if ((t /= d / 2) < 1) return c / 2 * (t * t * (((s *= (1.525)) + 1) * t - s)) + b;
+		return c / 2 * ((t -= 2) * t * (((s *= (1.525)) + 1) * t + s) + 2) + b;
+	}
+	function easeOutBack (t, b, c, d) {
+		s = 1.70158;
+		return c * ((t = t / d - 1) * t * ((s + 1) * t + s) + 1) + b;
+	}
+	function easeInOutQuart (t, b, c, d) {
+		if ((t /= d / 2) < 1) return c / 2 * t * t * t * t + b;
+		return -c / 2 * ((t -= 2) * t * t * t - 2) + b;
+	}
+</script>

@@ -1,0 +1,55 @@
+.PullChain {
+	z-index: 10;
+
+	--chain-color: var( --color-purple-400 );
+	--chain-height: var( --size-4 );
+	--chain-width: 4px;
+	--chain-hover-length: 0rem;
+	--chain-pull-length: 0rem;
+
+	position: absolute;
+	top: 100%; right: 0;
+	cursor: pointer;
+	height: calc( var( --chain-height ) + var( --chain-hover-length ) + var( --chain-pull-length ) );
+	width: calc( var( --size-2 ) * 2 );
+	padding: 0;
+	border: none;
+	background: url( /images/chain-link-light.svg ) repeat-y center;
+	background-size: var( --chain-width );
+}
+	.PullChain:hover
+	{
+		--chain-hover-length: 0.25rem;
+	}
+
+	@media (prefers-reduced-motion: no-preference) {
+		.PullChain {
+			transition: height 0.33s;
+		}
+	}
+
+	.PullChain:after {
+		--size: var( --size--2 );
+
+		display: block;
+		content: "";
+		position: absolute;
+		bottom: 0;
+		margin-left: calc( 50% - var( --size ) / 2 );
+		border-radius: var( --size );
+		height: calc( var( --size ) * 2 );
+		width: var( --size );
+		background-color: var( --color-purple-300 );
+	}
+
+.lights-off .PullChain {
+	background-image: url( /images/chain-link-dark.svg );
+	--chain-color: var( --color-purple-300 );
+}
+	.lights-off .PullChain:focus {
+		--chain-color: var( --color-cream );
+	}
+
+.lights-off .PullChain:after {
+	background-color: var( --color-purple-400 );
+}

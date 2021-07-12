@@ -1,0 +1,39 @@
+.Invisible {
+	--animate: 0;
+	--icon-color: var( --color-green );
+
+	position: absolute;
+	top: 0; right: 0; left: 0;
+
+	min-height: 100vh;
+
+	opacity: 0;
+	clip-path: circle(
+		var( --blacklight-size) at
+		calc( var( --blacklight-x ) + var( --blacklight-size ) )
+		calc( var( --blacklight-y ) + var( --blacklight-size ) )
+	);
+	background: var( --color-purple-200 );
+	color: var( --color-green );
+
+	transition: opacity
+		calc( 3.0s * var( --animate ) )
+		calc( 0.5s * var( --animate ) )
+		ease
+	;
+}
+	.Invisible em {
+		font-size: var( --size-3 );
+	}
+
+@media (min-width: {{ metrics.containerSize }}) {
+	.Invisible {
+		align-content: center;
+	}
+}
+
+.lights-off .Invisible {
+	opacity: 1.0;
+	--animate: 1;
+}
+

@@ -43,6 +43,8 @@
 		{{ criticalStyle | safe }}
 	</style>
 
+	<link rel="prefetch" href="/chain-link-dark.svg" as="image">
+
 	{# {% if styles.external[page.filePathStem] and styles.external[page.filePathStem].length > 0 %}
 	<link rel="stylesheet" href="/styles/{{ page.filePathStem | replace( '/pages/', '' ) }}.css" media="print" onload="this.media='all'">
 	{% endif %} #}
@@ -51,7 +53,10 @@
 	<script src="{{ script }}" defer></script>
 	{% endfor %}
 </head>
-<body>
+<body
+	class="[][][ lights-on ]"
+	onmousemove="followCursor( event )"
+>
 	{{ content | safe }}
 </body>
 </html>

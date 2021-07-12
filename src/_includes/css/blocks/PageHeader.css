@@ -1,0 +1,52 @@
+.PageHeader {
+	position: relative;
+	background-color: var( --color-purple-100 );
+	/* border-bottom: solid transparent var( --size--4 );
+	border-right: solid transparent var( --size--4 ); */
+	padding: var( --size-1 );
+	color: var( --color-purple-400 );
+	font-family: "ddc-hardware-regular";
+	font-size: var( --size-1 );
+	text-align: center;
+}
+
+.PageHeader em {
+	color: var( --color-cream );
+	font-family: "ddc-hardware-condensed";
+	font-size: var( --size-3 );
+}
+
+.lights-off .PageHeader {
+	background-color: transparent;
+	background-color: var( --color-black-light );
+	/* border-color: var( --color-purple-300 ); */
+	color: var( --color-purple-100 );
+	/* color: var( --color-purple-200 ); */
+}
+
+.lights-off .PageHeader em {
+	color: var( --color-purple-100 );
+}
+
+@media (min-width: {{ metrics.containerSize }}) {
+	.PageHeader {
+		border-radius: var( --size--1 );
+		margin-top: var( --fluid-2 );
+	}
+
+	.PageHeader em {
+		font-size: var( --size-4 );
+	}
+
+	.lights-off .PageHeader {
+		
+	}
+}
+
+.Invisible .PageHeader {
+	background-color: var( --color-purple-300 );
+	color: var( --color-purple-200 );
+}
+.Invisible .PageHeader em {
+	color: var( --color-purple-200 );
+}

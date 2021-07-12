@@ -1,149 +1,156 @@
 ---
 permalink: /index.html
-layout: layouts/page.njk
-# externalScripts:
-#  - "https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.2/dist/alpine.min.js"
+layout: layouts/base.njk
 ---
 <div
-	x-data="app"
-	class="[ stack-lg ][][ animate animate-fade-in container ]"
+	{# This is the element that will be available to screen readers #}
+	class="[][ grid ][ Visible ]"
 >
-	<div
-		class="[][ shadow ][ card-title ]"
-	>
-		<h1
-			class="[ stack ][ block-children font-size:1 ][]"
-			style="--stack-size: var( --size--1 )"
-			aria-label="{{ site.title }}"
-		>
-			<span class="[][ font-regular ][]">The</span>
-			<span class="[][ color-cream font-condensed font-size:3 ][ site-title ]">Invisible Link</span>
-			<span class="[][ font-regular ][]">Company</span>
-		</h1>
-	</div>
-
-	{# <p
-		class="[][ --bg-line font-regular font-size:0 super-size-me text-center ][]"
-		style="--bg-line-indent: 20%;"
-	>
-		<span class="[][][ bg-line-content ]">by <a class="[][ no-underline ][]" href="https://ashur.cab/rera">Ashur Cabrera</a></span>
-	</p> #}
-
-	<div
-		class="[ stack-xl ][ shadow ][ card card-subtitle color-cream font-regular ]"
-	>
-		<p
-			class="[ center stack-sm ][ block-children font-size:0 measure super-size-me ][]"
-		>
-			<span class="[][][]">A</span>
-			<span class="[][ font-size:2 ][]">link blog</span>
-			<span class="[][ color-green ][]">with a twist&hellip;</span>
-		</p>
-
-		<p class="[ stack-sm ][ block-children font-size:1 font-condensed super-size-me ][]">
-			<span>It’s only available</span>
-			<span>{% include "svg/rss.svg" %}</span>
-			<span>via&nbsp;RSS</span>
-		</p>
-	</div>
-
-	<section class="[ stack ][ text-center ][]">
-		<h2
-			class="[][ bg-line font-regular font-size:1 ][]"
-			style="--bg-line-mask-color: var( --color-cream ); --bg-line-indent: var( --size-4 );"
-		>
-			<span class="[][ bg-line-content ][]">“A terrible idea”</span>
-		</h2>
-	</section>
-
-	<section class="[ stack-lg ][ text-center ][]">
-		<h2
-			class="[][ bg-line font-regular font-size:1 ][]"
-			style="--bg-line-mask-color: var( --color-cream ); --bg-line-indent: var( --size-4 );"
-		>
-			<span class="[][ bg-line-content ][]">Featuring</span>
-		</h2>
-
-		<div class="[][][ features ]">
-			<div
-				class="[][ shadow ][ card card-testimonial ]"
+	<div class="[ center container stack-lg ][][]">
+		<header class="[][][ PageHeader ]">
+			<h1
+				aria-label="The Invisible Link Company"
+				class="[ center ][][]"
 			>
-				<p class="[ stack-sm ][ block-children ][]">
-					<span class="[][ font-regular font-size:3 super-size-me ][]">12</span>
-					<span class="[][ color-green font-regular font-size:1 ][]">hyperlinks</span>
-				</p>
-			</div>
-
-			<div
-				class="[][ shadow ][ card card-testimonial ]"
-				style="--card-accent: var( --color-green ); --shadow-color: var( --color-purple-light );"
-			>
-				<p class="[ stack-sm ][ block-children ][]">
-					<span class="[][ font-regular font-size:3 super-size-me ][]">6</span>
-					<span class="[][ color-purple-light font-regular font-size:1 ][]">topics</span>
-				</p>
-			</div>
-
-			<div
-				class="[][ shadow span-2 ][ card card-testimonial ]"
-				style="--card-accent: var( --color-cream );"
-			>
-				<p class="[ stack-sm ][ block-children font-regular font-size:0 super-size-me ][]">
-					<span class="[][][ color-purple-light ]">Dozens of new</span>
-					<span class="[][ font-size:2 ][]">blogs & feeds</span>
-					<span class="[][ color-purple-light ][]">to fall in love with</span>
-				</p>
-			</div>
-
-		</div>
-	</section>
-
-	<div class="[ stack ][ text-center ][]">
-		<p
-			class="[][ bg-line font-regular font-size:1 ][]"
-			style="--bg-line-mask-color: var( --color-cream ); --bg-line-indent: var( --size-4 );"
-		>
-			<span class="[][ bg-line-content ][]">But wait, there’s more!</span>
-		</p>
-	</div>
-
-	<div class="[ stack ][][]">
-		{# <p
-			class="[][ bg-line font-condensed font-size:0 super-size-me text-center ][]"
-			style="--bg-line-indent: var( --page-size );"
-		>
-			<span class="[][][ bg-line-content ]">But wait, there’s more!</span>
-		</p> #}
-
-		<div class="[][][ text-center ]">
-			{# <p class="[ stack ][ block-children font-regular ][]">
-				<span class="[][ block-children ][]">
-					<span
-						class="[][ font-size:2 super-size-me ][]"
-						style="line-height: 1"
-					>Every feed is unique</span>
-					<span
-						class="[][ font-size:0 super-size-me ][]"
-					>with the power of</span>
+				<span
+					aria-hidden="true"
+					class="[][ block-children ][]"
+				>
+					<span>The</span>
+					<em>Invisible Link</em>
+					<span>Company</span>
 				</span>
+			</h1>
 
-				<span class="[][ font-regular font-size:2 ][ mute-em ]">Mute ‘Em</span>
-
-				<span class="[][ font-regular font-size:1 ][]">technology</span>
-			</p> #}
-
-			{# <div
-				class="[][ shadow ][ card card-feature ]"
+			<button
+				onclick="toggleLight( event )"
+				class="[][][ PullChain ]"
 			>
-				<h2 class="[ stack ][ block-children font-regular font-size:0 super-size-me ][]">
-					<span class="[][ bg-line ][]">
-						<span class="[][][ bg-line-content font-condensed ]">Customize your feed with</span>
-					</span>
-					<span class="[][ bg-line ][]">
-						<span class="[][][ bg-line-content font-condensed ]">Technology</span>
-					</span>
-				</h2>
-			</div> #}
+				<span class="[][ visually-hidden ][]">Pull light chain</span>
+			</button>
+		</header>
+
+		<main class="[][][]">
+			<article class="[ stack-xl ][ text-center ][]">
+				<div class="[ stack-lg ][ transparent ][]">
+					<p
+						aria-label="A link blog with a twist"
+						class="[][ block-children font-regular ][ SiteSubtitle ]"
+					>
+						<span>A</span>
+						<em>link blog</em>
+						<span>with a twist&hellip;</span>
+					</p>
+
+					{% include "svg/rss.svg" %}
+
+					<p
+						class="[][ block-children font-condensed font-size:2 ][]"
+					>
+						<span>It’s only available</span>
+						<span>via RSS</span>
+					</p>
+				</div>
+
+				<p
+					class="[ stack-sm ][ block-children ][ SiteAuthor ]"
+				>
+					<span class="[][ transparent ][]">“A terrible idea”</span>
+					<span class="[][][]">by</span>
+					<em class="[][][]">Ashur Cabrera</em>
+				</p>
+			</article>
+		</main>
+	</div>
+</div>
+
+<div
+	{# This is the duplicate element that is not available to screen readers #}
+	aria-hidden="true"
+	class="[][ grid ][ Invisible ]"
+>
+	<div class="[ center container ][ stack-lg ][]">
+		<div class="[][][ PageHeader ]">
+			<h1 class="[ center ][ block-children ][]">
+				<span>The</span>
+				<em>Invisible Link</em>
+				<span>Company</span>
+			</h1>
+		</div>
+
+		<div class="[][][]">
+			<div class="[ stack-xl ][ text-center ][]">
+				<div class="[ stack-lg ][][]">
+					<p class="[][ block-children font-regular ][ SiteSubtitle ]">
+						<span>A</span>
+						<em>link blog</em>
+						<span>with a twist&hellip;</span>
+					</p>
+
+					{% include "svg/rss.svg" %}
+
+					<p class="[][ block-children font-condensed color-green font-size:2 ][ ]">
+						<span>It’s only available</span>
+						<span>via RSS</span>
+					</p>
+				</div>
+
+				<p class="[ stack-sm ][ block-children ][ SiteAuthor ]">
+					<span class="[][ color-green ][]">“A terrible idea”</span>
+					<span class="[][][]">by</span>
+					<em class="[][][]">Ashur Cabrera</em>
+				</p>
+			</div>
 		</div>
 	</div>
 </div>
+
+<script>
+	let elBody = document.querySelector( "body" );
+	let elDocument = document.documentElement;
+	let elChain = document.querySelector( ".PullChain" );
+
+	let state = {
+		x: 0,
+		y: 0,
+		light: true,
+	};
+
+	function followCursor( event )
+	{
+		if( state.light )
+		{
+			return;
+		}
+
+		moveTo( event.clientX, event.clientY );
+	}
+
+	function moveTo( x, y )
+	{
+		state.x = x;
+		state.y = y;
+		elDocument.style.setProperty( "--blacklight-x", `calc( ${state.x}px - var( --blacklight-size ) )` );
+		elDocument.style.setProperty( "--blacklight-y", `calc( ${state.y}px - var( --blacklight-size ) )` );
+	}
+
+	function toggleLight( event )
+	{
+		state.light = !state.light;
+
+		if( !state.light )
+		{
+			moveTo( event.clientX, event.clientY );
+		}
+
+		elChain.style.setProperty( "--chain-pull-length", "0.75rem" );
+		setTimeout( () =>
+		{
+			elChain.style.setProperty( "--chain-pull-length", "0rem" );
+
+			elBody.classList.toggle( "lights-on" );
+			elBody.classList.toggle( "lights-off" );
+
+		}, 150 )
+	}
+</script>
