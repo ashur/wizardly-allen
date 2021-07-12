@@ -5,7 +5,6 @@
 }
 	.SiteAuthor em {
 		font-size: var( --size-1 );
-		color: var( --color-purple-100 );
 	}
 
 .lights-off .SiteAuthor {
@@ -13,11 +12,6 @@
 	color: var( --color-black-light );
 }
 
-.lights-off .SiteAuthor em {
-	color: var( --color-black-light );
-}
-
-.Invisible .SiteAuthor,
-.Invisible .SiteAuthor em {
+.Invisible .SiteAuthor {
 	color: var( --color-purple-300 );
 }
