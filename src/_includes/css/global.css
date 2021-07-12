@@ -41,7 +41,7 @@
 	--stack-lg-size: var( --fluid-2 );
 	--stack-xl-size: var( --fluid-4 );
 
-	--blacklight-size: 7.5rem;
+	--blacklight-size: 9rem;
 	--blacklight-x: 500px;
 	--blacklight-y: 10px;
 }
