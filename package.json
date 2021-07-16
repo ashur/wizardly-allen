@@ -4,6 +4,7 @@
   "scripts": {
     "prebuild": "mkdir -p ./dist",
     "build": "eleventy",
+    "lint": "eslint src/**/*.js test/**/*.js",
     "serve": "netlify dev",
     "test": "mocha test"
   },
@@ -27,6 +28,7 @@
   },
   "devDependencies": {
     "chai": "^4.3.4",
+    "eslint": "^7.30.0",
     "mocha": "^8.4.0",
     "netlify-cli": "^4.0.5"
   }
