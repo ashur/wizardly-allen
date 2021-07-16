@@ -1,10 +1,10 @@
 .SiteSubtitle {
 	--icon-size: var( --size-3 );
-	font-size: var( --size-1 );
+	font-size: var( --size-0 );
 	line-height: 1.25;
 }
 	.SiteSubtitle em {
-		font-size: var( --size-3 );
+		font-size: var( --size-2 );
 	}
 
 .Invisible .SiteSubtitle {

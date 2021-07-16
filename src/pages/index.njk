@@ -45,12 +45,19 @@ layout: layouts/base.njk
 					{% include "svg/rss.svg" %}
 
 					<p
-						class="[][ block-children font-condensed font-size:2 ][]"
+						class="[][ block-children font-condensed ][]"
 					>
-						<span>It’s only available</span>
-						<span>via RSS</span>
+						<span class="[][ font-size:1 ][]">It’s only available</span>
+						<span class="[][ font-size:2 ][]">via RSS</span>
 					</p>
 				</div>
+
+				<p>
+					<a
+						class="[][][ Button ]"
+						href="/subscribe"
+					>Subscribe</a>
+				</p>
 
 				<p
 					class="[ stack-sm ][ block-children ][ SiteAuthor ]"
@@ -89,11 +96,20 @@ layout: layouts/base.njk
 
 					{% include "svg/rss.svg" %}
 
-					<p class="[][ block-children font-condensed color-green font-size:2 ][ ]">
-						<span>It’s only available</span>
-						<span>via RSS</span>
+					<p
+						class="[][ block-children font-condensed ][]"
+					>
+						<span class="[][ font-size:1 ][]">It’s only available</span>
+						<span class="[][ font-size:2 ][]">via RSS</span>
 					</p>
 				</div>
+
+				<p>
+					<a
+						class="[][][ Button ]"
+						href="/subscribe"
+					>Subscribe</a>
+				</p>
 
 				<p class="[ stack-sm ][ block-children ][ SiteAuthor ]">
 					<span class="[][ color-green ][]">“A terrible idea”</span>
@@ -140,10 +156,18 @@ layout: layouts/base.njk
 
 		if( !state.light )
 		{
-			moveTo( event.clientX, event.clientY );
+			if( window.matchMedia("(pointer:fine)").matches )
+			{
+				moveTo( event.clientX, event.clientY );
+			}
+			else
+			{
+				moveTo( window.innerWidth / 2, 175 );
+			}
 		}
 
 		elChain.style.setProperty( "--chain-pull-length", "0.75rem" );
+
 		setTimeout( () =>
 		{
 			elChain.style.setProperty( "--chain-pull-length", "0rem" );
@@ -151,6 +175,6 @@ layout: layouts/base.njk
 			elBody.classList.toggle( "lights-on" );
 			elBody.classList.toggle( "lights-off" );
 
-		}, 150 )
+		}, 150 );
 	}
 </script>

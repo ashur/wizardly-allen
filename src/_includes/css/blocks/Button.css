@@ -1,0 +1,20 @@
+.Button {
+	display: inline-block;
+	border-radius: var( --size--3 );
+	/* background-color: var( --color-purple-200 ); */
+	padding: var( --size--1 ) var( --size-1 );
+	color: transparent;
+	font-family: "ddc-hardware-regular";
+	font-size: var( --size-1 );
+	text-decoration: none;
+}
+
+.lights-off .Button {
+	/* background-color: var( --color-purple-200 ); */
+	/* color: var( --color-purple-100 ); */
+}
+
+.Invisible .Button {
+	background-color: var( --color-green );
+	color: var( --color-purple-200 );
+}

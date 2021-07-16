@@ -35,13 +35,13 @@
 
 	--container-max-width: var( --size-5 );
 	--measure: 60ch;
-	--page-size: var( --size-1 );
+	--page-size: var( --fluid-1 );
 	--stack-sm-size: var( --size--2 );
 	--stack-size: var( --size-0 );
 	--stack-lg-size: var( --fluid-2 );
-	--stack-xl-size: var( --fluid-4 );
+	--stack-xl-size: var( --fluid-3 );
 
-	--blacklight-size: 9rem;
+	--blacklight-size: 7rem;
 	--blacklight-x: 500px;
 	--blacklight-y: 10px;
 }
@@ -58,7 +58,7 @@ body {
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 	line-height: 1;
 
-	transition: background-color 0.33s ease;
+	/* transition: background-color 0.33s ease; */
 }
 
 a {
