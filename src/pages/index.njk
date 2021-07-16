@@ -1,6 +1,8 @@
 ---
 permalink: /index.html
 layout: layouts/base.njk
+externalScripts:
+  - /scripts/index.js
 ---
 <div
 	{# This is the element that will be available to screen readers #}
@@ -23,7 +25,7 @@ layout: layouts/base.njk
 			</h1>
 
 			<button
-				onclick="toggleLight( event )"
+				onclick="app.toggleLight( event )"
 				class="[][][ PullChain ]"
 			>
 				<span class="[][ visually-hidden ][]">Pull light chain</span>
@@ -120,61 +122,3 @@ layout: layouts/base.njk
 		</div>
 	</div>
 </div>
-
-<script>
-	let elBody = document.querySelector( "body" );
-	let elDocument = document.documentElement;
-	let elChain = document.querySelector( ".PullChain" );
-
-	let state = {
-		x: 0,
-		y: 0,
-		light: true,
-	};
-
-	function followCursor( event )
-	{
-		if( state.light )
-		{
-			return;
-		}
-
-		moveTo( event.clientX, event.clientY );
-	}
-
-	function moveTo( x, y )
-	{
-		state.x = x;
-		state.y = y;
-		elDocument.style.setProperty( "--blacklight-x", `calc( ${state.x}px - var( --blacklight-size ) )` );
-		elDocument.style.setProperty( "--blacklight-y", `calc( ${state.y}px - var( --blacklight-size ) )` );
-	}
-
-	function toggleLight( event )
-	{
-		state.light = !state.light;
-
-		if( !state.light )
-		{
-			if( window.matchMedia("(pointer:fine)").matches )
-			{
-				moveTo( event.clientX, event.clientY );
-			}
-			else
-			{
-				moveTo( window.innerWidth / 2, 175 );
-			}
-		}
-
-		elChain.style.setProperty( "--chain-pull-length", "0.75rem" );
-
-		setTimeout( () =>
-		{
-			elChain.style.setProperty( "--chain-pull-length", "0rem" );
-
-			elBody.classList.toggle( "lights-on" );
-			elBody.classList.toggle( "lights-off" );
-
-		}, 150 );
-	}
-</script>

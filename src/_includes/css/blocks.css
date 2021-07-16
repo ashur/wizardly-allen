@@ -6,9 +6,6 @@
 {% include "css/blocks/SiteSubtitle.css" %}
 {% include "css/blocks/Visible.css" %}
 
-.lights-on {
-	background-color: var( --color-cream );
-}
 .lights-off {
 	background-color: var( --color-purple );
 	cursor: default;
