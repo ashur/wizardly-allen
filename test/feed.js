@@ -1,3 +1,4 @@
+/* global describe, it */
 const Feed = require( "../src/Feed" );
 const {assert} = require( "chai" );
 
