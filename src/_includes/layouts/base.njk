@@ -43,7 +43,9 @@
 		{{ criticalStyle | safe }}
 	</style>
 
-	<link rel="prefetch" href="/chain-link-dark.svg" as="image">
+	{% for resource in prefetch %}
+	<link rel="prefetch" href="{{ resource.href }}" as="resource.as">
+	{% endfor %}
 
 	{# {% if styles.external[page.filePathStem] and styles.external[page.filePathStem].length > 0 %}
 	<link rel="stylesheet" href="/styles/{{ page.filePathStem | replace( '/pages/', '' ) }}.css" media="print" onload="this.media='all'">
