@@ -49,8 +49,6 @@ let app = {
 		setTimeout( () =>
 		{
 			elChain.style.setProperty( "--chain-pull-length", "0rem" );
-
-			elBody.classList.toggle( "lights-on" );
 			elBody.classList.toggle( "lights-off" );
 
 		}, 150 );
