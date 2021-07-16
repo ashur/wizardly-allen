@@ -1,11 +1,11 @@
 @font-face {
 	font-family: "ddc-hardware-regular";
-	src: url( "/fonts/ddc-hardware-regular.woff" ) format( "woff" );
+	src: url( "{{ site.assetsDomain }}/fonts/ddc-hardware-regular.woff" ) format( "woff" );
 	font-display: swap;
 }
 
 @font-face {
 	font-family: "ddc-hardware-condensed";
-	src: url( "/fonts/ddc-hardware-condensed.woff" ) format( "woff" );
+	src: url( "{{ site.assetsDomain }}/fonts/ddc-hardware-condensed.woff" ) format( "woff" );
 	font-display: swap;
 }
