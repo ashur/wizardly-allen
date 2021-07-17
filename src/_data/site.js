@@ -11,4 +11,5 @@ module.exports = {
 		link: "https://ashur.cab/rera"
 	},
 	assetsDomain: process.env.NODE_ENV === "production" ? "https://assets.invisiblelink.co" : "",
+	apiVersion: 1,
 };

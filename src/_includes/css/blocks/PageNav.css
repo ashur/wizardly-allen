@@ -1,0 +1,16 @@
+.PageNav {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+}
+
+.PageNav ul {
+	display: flex;
+	list-style-type: none;
+	justify-self: end;
+	margin: 0;
+	padding: 0;
+}
+
+.PageNav ul > * + * {
+	margin-left: var( --size-0 );
+}

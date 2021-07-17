@@ -1,6 +1,7 @@
 {% include "css/blocks/Button.css" %}
 {% include "css/blocks/Invisible.css" %}
 {% include "css/blocks/PageHeader.css" %}
+{% include "css/blocks/PageNav.css" %}
 {% include "css/blocks/PullChain.css" %}
 {% include "css/blocks/SiteAuthor.css" %}
 {% include "css/blocks/SiteSubtitle.css" %}

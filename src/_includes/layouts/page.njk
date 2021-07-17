@@ -1,3 +1,36 @@
 ---
 layout: layouts/base.njk
 ---
+<div
+	x-data="app"
+	class="[ center --container stack ][][]"
+>
+	<header>
+		<nav class="[][][ PageNav ]">
+			<p class="[][ font-regular ][]">{{ site.title }}</p>
+
+			<ul>
+				{% for page in collections.pages %}
+				<li>{{ page.data.title }}</li>
+				{% endfor %}
+				<li
+					x-show="currentUser"
+					style="display: none;"
+					{# x-text="currentUser ? currentUser.user_metadata.full_name : ''" #}
+				>
+					<button
+						@click="logout()"
+					>Log Out</button>
+				</li>
+			</ul>
+		</nav>
+
+		<div>
+			<h1 class="[][ font-condensed font-size:4 ][]">{{ title }}</h1>
+			{% if subtitle %}<p>{{ subtitle }}</p>{% endif %}
+		</div>
+	</header>
+	<main>
+		{{ content | safe }}
+	</main>
+</div>
