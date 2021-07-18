@@ -1,0 +1,2 @@
+/admin/* 					200!	Role=Admin,admin
+/admin/			/login		404

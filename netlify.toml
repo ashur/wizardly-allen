@@ -31,15 +31,3 @@
   to = "/welcome/?hash=:hash"
   status = 200
   force = true
-
-[[redirects]]
-  from = "/admin/*"
-  status = 200
-  force = true
-  conditions = {Role = ["Admin"]}
-
-[[redirects]]
-  from = "/admin/*"
-  to = "/login"
-  status = 401
-  force = true
