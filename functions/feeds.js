@@ -1,6 +1,5 @@
 const express = require( "express" );
 const Feed = require( "../src/Feed" );
-const parseBody = require( "./middleware/parse-body" );
 const path = require( "path" );
 const {serverError} = require( "./utils/error" );
 const serverless = require( "serverless-http" );
