@@ -1,6 +1,14 @@
-module.exports = (req, res, next) =>
+/**
+ * Requests must include an `Authorization: Bearer <token>` header, which
+ * exposes Netlify Identity context.
+ *
+ * @see https://docs.netlify.com/functions/functions-and-identity/
+ */
+module.exports.requireAuth = (req, res, next) =>
 {
-	if( req.headers["authorization"] !== process.env.APP_ADMIN_TOKEN )
+	let clientContext = req.apiGateway.context.clientContext;
+
+	if( !clientContext.identity )
 	{
 		console.log( "Failed login attempt:", {
 			authorization: req.headers["authorization"],

@@ -1,6 +1,6 @@
 const express = require( "express" );
 const parseBody = require( "./middleware/parse-body" );
-const requireAuth = require( "./middleware/auth" );
+const {requireAuth} = require( "./middleware/auth" );
 const {serverError} = require( "./utils/error" );
 const serverless = require( "serverless-http" );
 const supabase = require( "../src/SupabaseClient" );
